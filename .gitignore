@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.vite/
+.tmp-chrome/
+.tmp-chrome-shot/
+render-check.png
+
+cra-web-frontend/
+pupil-dilation/
+projects/

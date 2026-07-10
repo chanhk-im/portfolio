@@ -1,0 +1,1474 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>임찬혁 | System Developer Portfolio</title>
+  <style>
+    :root {
+      --ink: #1f2937;
+      --muted: #667085;
+      --line: #d7dee8;
+      --paper: #f7f8fb;
+      --panel: #ffffff;
+      --blue: #2457c5;
+      --teal: #087e8b;
+      --green: #16805c;
+      --amber: #a85c00;
+      --rose: #bd3f61;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 88px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.62;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      min-height: calc(100svh - 58px);
+      display: grid;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+      gap: 46px;
+      align-items: center;
+      padding: 48px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(34px, 4.8vw, 58px);
+      line-height: 1.12;
+      letter-spacing: 0;
+      word-break: keep-all;
+    }
+
+    .hero-copy {
+      max-width: 780px;
+      margin: 28px 0 0;
+      color: #475467;
+      font-size: clamp(18px, 2vw, 22px);
+      word-break: keep-all;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-panel {
+      display: grid;
+      gap: 14px;
+    }
+
+    .hero-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 20px 52px rgba(16, 24, 40, .10);
+    }
+
+    .hero-card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 17px;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lead + .hero-card {
+      margin: 18px 0 16px;
+      box-shadow: 0 8px 22px rgba(16, 24, 40, .04);
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 248, 251, .92);
+      backdrop-filter: blur(14px);
+    }
+
+    nav .page {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-block: 10px;
+    }
+
+    nav a {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: #475467;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      background: #e9eef8;
+      color: var(--ink);
+    }
+
+    main { padding: 0 0 80px; }
+
+    section {
+      display: grid;
+      align-items: start;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 88px;
+    }
+
+    .compact-section {
+      padding: 26px 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    h2 {
+      position: sticky;
+      top: 76px;
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.2;
+      word-break: keep-all;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.32;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    p {
+      margin: 0 0 14px;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .lead {
+      color: #344054;
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 8px 22px rgba(16, 24, 40, .04);
+      min-width: 0;
+    }
+
+    .compact-card {
+      padding: 16px;
+    }
+
+    .compact-card h3 {
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
+
+    .compact-card p {
+      margin-bottom: 0;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .card p,
+    li { color: #475467; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 7px;
+      border-radius: 5px;
+      background: #eef2ff;
+      color: #273a8a;
+      font-size: 12px;
+      font-weight: 800;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
+    .tag.teal { background: #e5f7f9; color: var(--teal); }
+    .tag.green { background: #e9f8f1; color: var(--green); }
+    .tag.amber { background: #fff2df; color: var(--amber); }
+    .tag.rose { background: #fff0f3; color: var(--rose); }
+
+    .metric {
+      display: grid;
+      gap: 5px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--blue);
+      background: #fff;
+    }
+
+    .metric b {
+      display: block;
+      font-size: 21px;
+      line-height: 1.22;
+    }
+
+    .metric span {
+      color: #475467;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      grid-template-areas:
+        "visual title"
+        "visual tags";
+      gap: 12px 16px;
+      align-items: start;
+      padding: 18px;
+      height: 176px;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .project h3 {
+      grid-area: title;
+      margin-bottom: 0;
+      font-size: 18px;
+    }
+
+    .project:hover {
+      transform: translateY(-2px);
+      border-color: #b8c6dc;
+      box-shadow: 0 14px 32px rgba(16, 24, 40, .08);
+    }
+
+    .project:focus-visible {
+      outline: 3px solid rgba(36, 87, 197, .28);
+      outline-offset: 3px;
+    }
+
+    .project-list {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      align-items: stretch;
+    }
+
+    .project .stack {
+      grid-area: tags;
+      margin-top: auto;
+      gap: 6px;
+    }
+
+    .project-visual {
+      grid-area: visual;
+      margin: 2px 0 4px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+    }
+
+    .project-visual img,
+    .project-preview {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .project-visual.logo-visual {
+      display: grid;
+      place-items: center;
+      background: #fff;
+    }
+
+    .project-visual.logo-visual img {
+      width: 82%;
+      height: auto;
+      min-height: 0;
+      aspect-ratio: auto;
+      object-fit: contain;
+    }
+
+    .project-preview {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(36, 87, 197, .12), rgba(8, 126, 139, .14)),
+        #f8fafc;
+    }
+
+    .project-preview::before,
+    .project-preview::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(36, 87, 197, .26);
+      background: rgba(255, 255, 255, .68);
+    }
+
+    .project-preview::before {
+      inset: 18% 14% auto;
+      height: 28%;
+      border-radius: 8px;
+    }
+
+    .project-preview::after {
+      left: 18%;
+      right: 18%;
+      bottom: 20%;
+      height: 18%;
+      border-radius: 999px;
+    }
+
+    .project-preview.pointcloud {
+      background:
+        radial-gradient(circle at 30% 36%, rgba(8, 126, 139, .35) 0 3px, transparent 4px),
+        radial-gradient(circle at 58% 48%, rgba(36, 87, 197, .32) 0 3px, transparent 4px),
+        radial-gradient(circle at 72% 30%, rgba(22, 128, 92, .28) 0 3px, transparent 4px),
+        linear-gradient(135deg, #eef9fb, #f6f8ff);
+    }
+
+    .project-preview.loadbalancer {
+      background:
+        linear-gradient(90deg, transparent 31%, rgba(36, 87, 197, .22) 32% 34%, transparent 35%),
+        linear-gradient(90deg, transparent 65%, rgba(36, 87, 197, .22) 66% 68%, transparent 69%),
+        linear-gradient(135deg, #f7f9fc, #eef4ff);
+    }
+
+    .project-preview.mobile {
+      background:
+        linear-gradient(135deg, rgba(22, 128, 92, .14), rgba(36, 87, 197, .10)),
+        #f8fafc;
+    }
+
+    .project-preview.mobile::before {
+      inset: 12% 35%;
+      height: auto;
+      bottom: 12%;
+      border-radius: 20px;
+    }
+
+    .project-preview.reservation {
+      background:
+        linear-gradient(90deg, rgba(36, 87, 197, .14) 1px, transparent 1px),
+        linear-gradient(rgba(36, 87, 197, .14) 1px, transparent 1px),
+        #f8fafc;
+      background-size: 28px 28px;
+    }
+
+    .case-study {
+      display: grid;
+      gap: 14px;
+    }
+
+    .case-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .case-row strong { color: var(--blue); }
+
+    .case-row span,
+    .case-row p {
+      margin: 0;
+      color: #475467;
+    }
+
+    .skill-table {
+      display: grid;
+      gap: 10px;
+    }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .skill-row strong { color: #344054; }
+    .skill-row span { color: #475467; }
+
+    .contact-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .contact-item {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #344054;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-1px);
+      border-color: #b8c6dc;
+      box-shadow: 0 10px 22px rgba(16, 24, 40, .08);
+    }
+
+    .contact-item svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(15, 23, 42, .66);
+    }
+
+    .modal.is-open { display: flex; }
+
+    .modal-panel {
+      width: min(1080px, 100%);
+      max-height: min(86vh, 860px);
+      overflow: auto;
+      overflow-x: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 28px 90px rgba(15, 23, 42, .34);
+    }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 24px;
+      overflow-wrap: anywhere;
+    }
+
+    .modal-header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    .modal-close {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      display: grid;
+      gap: 18px;
+      padding: 24px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .detail-block {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      min-width: 0;
+      align-self: start;
+    }
+
+    .detail-block:has(.arch-diagram),
+    .architecture-block {
+      grid-column: 1 / -1;
+    }
+
+    .detail-block h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .detail-block p { color: #475467; }
+
+    .architecture-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .architecture-list div {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #e6ebf2;
+    }
+
+    .architecture-list strong { color: var(--blue); }
+
+    .arch-diagram {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .arch-flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .arch-node {
+      position: relative;
+      min-height: 84px;
+      padding: 13px 12px;
+      border: 1px solid #dbe5f2;
+      border-radius: 8px;
+      background: #fff;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .arch-node::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -20px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-weight: 900;
+      z-index: 1;
+    }
+
+    .arch-node:last-child::after { content: ""; }
+
+    .arch-node strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--blue);
+      font-size: 14px;
+    }
+
+    .arch-node span {
+      display: block;
+      color: #475467;
+      font-size: 13px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    .arch-node.teal strong { color: var(--teal); }
+    .arch-node.green strong { color: var(--green); }
+    .arch-node.amber strong { color: var(--amber); }
+    .arch-node.rose strong { color: var(--rose); }
+
+    .arch-support {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 8px;
+    }
+
+    .arch-support div {
+      padding: 10px 12px;
+      border: 1px dashed #c9d5e6;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: #475467;
+      font-size: 13px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .arch-support strong {
+      display: block;
+      color: #344054;
+      margin-bottom: 3px;
+    }
+
+    .arch-layers {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .arch-lane {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      align-items: stretch;
+      padding: 12px;
+      border: 1px solid #e6eaf2;
+      background: #fff;
+      border-radius: 8px;
+    }
+
+    .arch-lane strong {
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .arch-lane span {
+      color: #475467;
+      font-size: 13px;
+      line-height: 1.55;
+      overflow-wrap: anywhere;
+    }
+
+    .arch-arrow-label {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: #667085;
+    }
+
+    .arch-arrow-label span {
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: #f7f9fc;
+      border: 1px solid #e6eaf2;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    footer {
+      padding: 34px 0 54px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .page { width: min(100% - 28px, 1120px); }
+      header { min-height: calc(100svh - 58px); }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-block: 44px;
+      }
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      h2 { position: static; }
+      .grid.two,
+      .grid.three { grid-template-columns: 1fr; }
+      .project-list { grid-template-columns: 1fr; }
+      .project {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "title"
+          "visual"
+          "tags";
+        height: auto;
+        padding: 14px;
+      }
+      .project-visual img,
+      .project-preview {
+        min-height: 0;
+        height: auto;
+        aspect-ratio: 21 / 8;
+      }
+      .project-visual.logo-visual img {
+        width: 74%;
+        aspect-ratio: auto;
+      }
+      .case-row,
+      .skill-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .detail-grid { grid-template-columns: 1fr; }
+      .architecture-list div { grid-template-columns: 1fr; gap: 4px; }
+      .arch-flow { grid-template-columns: 1fr; }
+      .arch-node { min-height: auto; }
+      .arch-node::after {
+        content: "↓";
+        top: auto;
+        right: 50%;
+        bottom: -17px;
+        transform: translateX(50%);
+      }
+      .arch-node:last-child::after { content: ""; }
+      .arch-support { grid-template-columns: 1fr; }
+      .arch-lane { grid-template-columns: 1fr; }
+      .arch-arrow-label { grid-template-columns: 1fr; }
+      .modal { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="page">
+      <a href="#home">Main</a>
+      <a href="#about">About</a>
+      <a href="#strengths">Strengths</a>
+      <a href="#projects">Projects</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </div>
+  </nav>
+
+  <header id="home">
+    <div class="page">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">System Developer Portfolio</p>
+          <h1>서버의 구조와 운영까지 고민하는 개발자, 임찬혁입니다.</h1>
+          <p class="hero-copy">
+            C/C++ 네트워크 프로그래밍, Spring Boot 백엔드, CI/CD, 모니터링까지 서버 전반을 경험했습니다.
+            실시간 스트리밍 성능 개선, 실운영 웹서비스 백엔드, Raw Socket 기반 로드밸런서처럼 문제의 낮은 층까지 내려가 해결하는 프로젝트를 해왔습니다.
+          </p>
+        </div>
+        <div class="hero-panel">
+          <div class="contact-list" aria-label="Contact links">
+            <a class="contact-item" href="mailto:cfasd1875@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16v12H4z" stroke-width="2" stroke-linejoin="round" />
+                <path d="m4 7 8 6 8-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </a>
+            <a class="contact-item" href="https://github.com/chanhk-im" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.46.08.63-.2.63-.44v-1.6c-2.56.56-3.1-1.1-3.1-1.1-.42-1.07-1.02-1.36-1.02-1.36-.84-.57.06-.56.06-.56.93.07 1.42.96 1.42.96.83 1.42 2.18 1.01 2.7.77.09-.6.33-1.01.6-1.24-2.04-.23-4.19-1.02-4.19-4.55 0-1 .36-1.83.95-2.47-.1-.24-.41-1.18.09-2.44 0 0 .78-.25 2.54.94A8.8 8.8 0 0 1 12 7.3c.78 0 1.56.1 2.3.31 1.75-1.19 2.53-.94 2.53-.94.5 1.26.19 2.2.1 2.44.59.64.94 1.46.94 2.47 0 3.54-2.15 4.32-4.2 4.55.34.29.64.86.64 1.74v2.39c0 .24.17.52.64.43A9.2 9.2 0 0 0 12 2.8Z" stroke-width="1.7" stroke-linejoin="round" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section id="about">
+      <div class="section-head">
+        <h2>소개</h2>
+        <div>
+          <p class="lead">
+            저는 시스템의 동작 원리와 서비스 운영 사이를 잇는 개발자입니다.
+            C/C++ 소켓 통신으로 데이터 전송 구조를 직접 설계했고, Spring Boot 기반 REST API와 AWS/Docker 배포 환경을 구축했습니다.
+            기능 구현에서 끝내지 않고 성능 병목, 데이터 정합성, 장애 추적성까지 함께 개선하는 경험을 쌓았습니다.
+          </p>
+          <div class="grid three">
+            <div class="metric">
+              <b>600ms → 130ms</b>
+              <span>Point Cloud 스트리밍 지연 시간 약 4.6배 개선</span>
+            </div>
+            <div class="metric">
+              <b>실운영 백엔드</b>
+              <span>CRAWeb 인증, 게시글, 유저 API, CI/CD, 모니터링 구축</span>
+            </div>
+            <div class="metric">
+              <b>Low-Level 경험</b>
+              <span>Raw Socket, TCP/IP 헤더 파싱, NAT 테이블, 스케줄링 구현</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="strengths" class="compact-section">
+      <div class="section-head">
+        <h2>핵심 역량</h2>
+        <div class="grid three">
+          <div class="card compact-card">
+            <h3>서버/백엔드 구현</h3>
+            <p>Spring Boot, Spring Security, JPA, MySQL 기반 REST API를 설계하고 인증/권한, 게시글, 유저, 파일 처리 기능을 구현했습니다.</p>
+          </div>
+          <div class="card compact-card">
+            <h3>시스템 성능 개선</h3>
+            <p>C/C++ 소켓 통신에서 병렬 처리, 프레임 스키핑, 다운샘플링을 적용해 실시간 데이터 전송 지연을 줄였습니다.</p>
+          </div>
+          <div class="card compact-card">
+            <h3>운영과 문제 추적</h3>
+            <p>Docker, GitHub Actions, AWS, Grafana, Loki, Prometheus를 활용해 배포와 장애 대응이 가능한 운영 환경을 구성했습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head">
+        <h2>프로젝트</h2>
+        <div class="grid project-list">
+          <article class="card project" data-modal="craweb-modal" role="button" tabindex="0" aria-label="CRA 동아리 공식 웹사이트 상세 보기">
+            <h3>CRA 동아리 공식 웹사이트</h3>
+            <div class="project-visual">
+              <img src="cra-web-frontend/public/cra-og-image.png" alt="CRAWeb recruitment main visual" />
+            </div>
+            <div class="stack">
+              <span class="tag">Java</span>
+              <span class="tag">Spring Boot</span>
+              <span class="tag">Spring Security</span>
+              <span class="tag">MySQL</span>
+              <span class="tag green">AWS</span>
+              <span class="tag amber">Docker</span>
+              <span class="tag rose">Monitoring</span>
+            </div>
+          </article>
+
+          <article class="card project" data-modal="pointcloud-modal" role="button" tabindex="0" aria-label="Point Cloud 실시간 스트리밍 서비스 상세 보기">
+            <h3>Point Cloud 실시간 스트리밍 서비스</h3>
+            <div class="project-visual">
+              <div class="project-preview pointcloud" aria-label="Point cloud streaming visual"></div>
+            </div>
+            <div class="stack">
+              <span class="tag teal">C/C++</span>
+              <span class="tag teal">Socket</span>
+              <span class="tag teal">TCP</span>
+              <span class="tag green">CUDA</span>
+              <span class="tag teal">Multi-threading</span>
+              <span class="tag green">Point Cloud</span>
+            </div>
+          </article>
+
+          <article class="card project" data-modal="loadbalancer-modal" role="button" tabindex="0" aria-label="L4 TCP 로드밸런서 상세 보기">
+            <h3>L4 TCP 로드밸런서</h3>
+            <div class="project-visual">
+              <div class="project-preview loadbalancer" aria-label="TCP load balancer visual"></div>
+            </div>
+            <div class="stack">
+              <span class="tag teal">C</span>
+              <span class="tag teal">Raw Socket</span>
+              <span class="tag teal">TCP/IP</span>
+              <span class="tag amber">Load Balancing</span>
+            </div>
+          </article>
+
+          <article class="card project" data-modal="itaxi-modal" role="button" tabindex="0" aria-label="iTaxi 상세 보기">
+            <h3>iTaxi</h3>
+            <div class="project-visual">
+              <div class="project-preview mobile" aria-label="Mobile taxi matching app visual"></div>
+            </div>
+            <div class="stack">
+              <span class="tag green">Flutter</span>
+              <span class="tag green">Firebase</span>
+              <span class="tag">REST API</span>
+              <span class="tag">MySQL</span>
+            </div>
+          </article>
+
+          <article class="card project" data-modal="donggong-modal" role="button" tabindex="0" aria-label="동공확장 상세 보기">
+            <h3>동공확장</h3>
+            <div class="project-visual logo-visual">
+              <img src="pupil-dilation/public/img/header_logo.svg" alt="동공확장 로고" />
+            </div>
+            <div class="stack">
+              <span class="tag green">React</span>
+              <span class="tag green">Firebase</span>
+              <span class="tag">Redux</span>
+              <span class="tag">Router</span>
+              <span class="tag amber">Reservation</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="section-head">
+        <h2>문제 해결 사례</h2>
+        <div class="case-study">
+          <div class="case-row">
+            <strong>실시간 전송 지연</strong>
+            <p>Point Cloud 데이터는 프레임 크기가 크고 연속 전송이 필요해 지연이 누적됐습니다. depth 정보 전송 주기를 조정하고 병렬 처리와 다운샘플링을 적용해 600ms 지연을 130ms까지 낮췄습니다.</p>
+          </div>
+          <div class="case-row">
+            <strong>데이터 정합성</strong>
+            <p>CRAWeb 게시글 좋아요는 @ManyToMany 직접 매핑에서 중복 좋아요와 로딩 비용 문제가 발생할 수 있었습니다. BoardLike 중간 엔티티, Fetch Join, DB 유니크 제약으로 정합성과 조회 성능을 개선했습니다.</p>
+          </div>
+          <div class="case-row">
+            <strong>운영 장애 대응</strong>
+            <p>서버 실행만으로는 문제 원인 추적이 어려워 로그와 메트릭 수집 구조를 추가했습니다. Grafana, Loki, Prometheus, Logback으로 배포 이후 API 상태와 장애 원인을 확인할 수 있게 했습니다.</p>
+          </div>
+          <div class="case-row">
+            <strong>TCP 패킷 처리</strong>
+            <p>L4 로드밸런서에서는 커널이 추상화하는 IP/TCP 헤더, 체크섬, NAT 매핑을 직접 다뤘습니다. Raw Socket 기반 구현을 통해 네트워크 계층의 동작을 코드 수준에서 검증했습니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head">
+        <h2>기술 스택</h2>
+        <div class="skill-table">
+          <div class="skill-row">
+            <strong>Backend</strong>
+            <span>Java, Spring Boot, Spring Security, Node.js, C/C++</span>
+          </div>
+          <div class="skill-row">
+            <strong>Frontend</strong>
+            <span>React.js, Flutter</span>
+          </div>
+          <div class="skill-row">
+            <strong>Database</strong>
+            <span>MySQL</span>
+          </div>
+          <div class="skill-row">
+            <strong>Infra/DevOps</strong>
+            <span>Docker, GitHub Actions, AWS EC2, AWS S3, AWS RDS</span>
+          </div>
+          <div class="skill-row">
+            <strong>Monitoring</strong>
+            <span>Grafana, Loki, Prometheus, Logback, SLF4J</span>
+          </div>
+          <div class="skill-row">
+            <strong>Etc</strong>
+            <span>Socket Programming, Multi-threading, TCP/IP, Unity(C#)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="section-head">
+        <h2>교육 및 수상</h2>
+        <div class="grid two">
+          <div class="card">
+            <h3>한동대학교</h3>
+            <p>AI컴퓨터공학심화 전공, 2019.02 - 2025.02, GPA 4.03</p>
+            <ul>
+              <li>SW페스티벌 소프트웨어 공모전 2회 수상</li>
+              <li>알고리즘 대회 3회 수상: 대상, 우수상, 동상</li>
+              <li>KCC 2024 장려상</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>SSAFY 15기</h3>
+            <p>2026.01 - 현재</p>
+            <ul>
+              <li>삼성 SW 역량테스트 B형 취득</li>
+              <li>알고리즘, 웹 개발, 협업 프로젝트 기반 학습 진행</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="craweb-modal" role="dialog" aria-modal="true" aria-labelledby="craweb-title">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <h3 id="craweb-title">CRA 동아리 공식 웹사이트</h3>
+          <p>Spring Boot 백엔드, CI/CD, 모니터링까지 담당한 실운영 웹서비스</p>
+        </div>
+        <button class="modal-close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div class="detail-block architecture-block">
+            <h4>아키텍처 구조</h4>
+            <div class="arch-diagram" aria-label="CRAWeb architecture diagram">
+              <div class="arch-flow">
+                <div class="arch-node"><strong>React SPA</strong><span>Vite, TypeScript, TanStack Query, Zustand</span></div>
+                <div class="arch-node green"><strong>REST API</strong><span>Spring Boot, Controller, DTO, Swagger</span></div>
+                <div class="arch-node teal"><strong>Domain</strong><span>Auth, Board, Comment, Project, Item, File</span></div>
+                <div class="arch-node amber"><strong>Storage</strong><span>MySQL/JPA, Redis token, S3 files</span></div>
+                <div class="arch-node rose"><strong>Ops</strong><span>Docker, GitHub Actions, Grafana, Loki</span></div>
+              </div>
+              <div class="arch-support">
+                <div><strong>Auth</strong>Spring Security + JWT + refresh token</div>
+                <div><strong>Search</strong>Hibernate Search + Lucene title boost</div>
+                <div><strong>Monitoring</strong>Actuator + Prometheus metrics + Logback logs</div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h4>핵심 역할</h4>
+            <ul>
+              <li>게시글·유저 REST API와 Spring Security 인증/권한 구현</li>
+              <li>BE/FE 통합 CI/CD 파이프라인 구축</li>
+              <li>S3 이미지 업로드, 임시 파일 이동, 게시글 본문 URL 치환 처리</li>
+              <li>운영 로그와 메트릭 수집을 위한 모니터링 스택 구성</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-block">
+            <h4>트러블슈팅 1 · 좋아요 정합성과 N+1</h4>
+            <p>
+              초기 좋아요 구조는 게시글과 유저가 직접 @ManyToMany로 연결되어 로딩 비용과 중복 좋아요 처리 위험이 있었습니다.
+              BoardLike 중간 엔티티로 분리하고 Fetch Join과 DB 유니크 제약을 적용해 조회 성능과 데이터 정합성을 함께 개선했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>트러블슈팅 2 · 운영 장애 추적</h4>
+            <p>
+              서버 실행 로그만으로는 장애 원인을 빠르게 찾기 어려웠습니다.
+              Logback, Loki, Prometheus, Grafana를 연결해 로그와 메트릭을 함께 확인할 수 있도록 구성했고, 운영 중 장애 대응 시간을 줄였습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>트러블슈팅 3 · S3 이미지 라이프사이클</h4>
+            <p>
+              에디터에서 본문 저장 전에 이미지가 먼저 업로드되어 미사용 파일이 남을 수 있었습니다.
+              temp 경로에 임시 업로드 후 저장 시 BOARD/PROJECT 경로로 이동하고, 수정/삭제 시 DELETED 경로로 이동하도록 정리했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>성과</h4>
+            <p>
+              CRA 리크루팅과 커뮤니티 용도로 운영 가능한 웹서비스를 구축했고, 인증·게시판·관리자 기능뿐 아니라 배포와 관측까지 포함한 백엔드 운영 경험을 확보했습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="pointcloud-modal" role="dialog" aria-modal="true" aria-labelledby="pointcloud-title">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <h3 id="pointcloud-title">Point Cloud 실시간 스트리밍 서비스</h3>
+          <p>C/C++ 소켓 통신 기반 3D 포인트 클라우드 실시간 송수신 시스템</p>
+        </div>
+        <button class="modal-close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div class="detail-block architecture-block">
+            <h4>아키텍처 구조</h4>
+            <div class="arch-diagram" aria-label="Point Cloud streaming architecture diagram">
+              <div class="arch-flow">
+                <div class="arch-node teal"><strong>iOS Sender</strong><span>TrueDepth depth map + JPEG frame 수집</span></div>
+                <div class="arch-node"><strong>Frame Protocol</strong><span>9-byte header(length 8 + type 1) + payload</span></div>
+                <div class="arch-node green"><strong>C/CUDA Server</strong><span>receiver 먼저 accept, sender accept 후 프레임 라우팅</span></div>
+                <div class="arch-node amber"><strong>GPU Processing</strong><span>depth type=0 변환, 640x480 → 1280x960 업샘플링</span></div>
+                <div class="arch-node rose"><strong>iOS Receiver</strong><span>depth/video 수신 후 2D JET 또는 3D point cloud 렌더링</span></div>
+              </div>
+              <div class="arch-layers" aria-label="Point Cloud server pipeline">
+                <div class="arch-lane">
+                  <strong>Client Capture</strong>
+                  <span>AVCaptureDataOutputSynchronizer로 video/depth를 맞추고, JPEG는 매 전송 주기마다 보내되 depth는 6~7프레임 단위로 제한해 네트워크 전송량을 줄였습니다.</span>
+                </div>
+                <div class="arch-lane">
+                  <strong>Socket Server</strong>
+                  <span>TCP listen/bind/accept 이후 receiver와 sender 소켓을 분리했습니다. 서버는 header.type으로 depth(type=0)와 image(type=1)를 구분하고, image는 바로 relay, depth는 처리 후 길이를 4배로 보정해 전송합니다.</span>
+                </div>
+                <div class="arch-lane">
+                  <strong>Depth Pipeline</strong>
+                  <span>수신한 depth payload를 uint16 배열로 변환하고 CUDA device memory로 복사한 뒤 kernel을 실행했습니다. 인접 픽셀의 깊이 차이가 작은 경우에만 보간해 point cloud 품질 저하를 줄였습니다.</span>
+                </div>
+                <div class="arch-lane">
+                  <strong>Delivery/Metric</strong>
+                  <span>처리된 depth buffer와 JPEG payload를 receiver로 chunk 전송하고, frame index, 처리 시간, throughput을 로그로 남겨 병목 위치를 확인할 수 있게 했습니다.</span>
+                </div>
+              </div>
+              <div class="arch-arrow-label">
+                <span>type=0 depth</span>
+                <span>type=1 JPEG</span>
+                <span>CUDA upsampling</span>
+                <span>receiver render</span>
+              </div>
+              <div class="arch-support">
+                <div><strong>Protocol</strong>length/type header로 binary payload 경계 관리</div>
+                <div><strong>Server</strong>sender/receiver socket 분리, frame type별 relay/processing 분기</div>
+                <div><strong>Optimization</strong>depth 전송 주기 조정 + CUDA 2배 업샘플링</div>
+                <div><strong>Result</strong>전송 지연 600ms → 130ms</div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h4>핵심 역할</h4>
+            <ul>
+              <li>C/C++ TCP 서버의 bind/listen/accept 흐름과 sender/receiver 세션 분리 구현</li>
+              <li>length/type 기반 바이너리 프레임 프로토콜 설계 및 depth/video payload 분기 처리</li>
+              <li>CUDA kernel 기반 depth frame 2배 업샘플링과 host/device memory 복사 흐름 구현</li>
+              <li>프레임 단위 처리 시간과 throughput 로그를 추가해 서버 병목 분석 기반 마련</li>
+              <li>국내 학술 논문 게재 및 KCC 2024 장려상 수상</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-block">
+            <h4>트러블슈팅 1 · 대용량 프레임 지연</h4>
+            <p>
+              Point Cloud 데이터는 프레임 크기가 크고 연속 송수신이 필요해 네트워크 지연이 누적됐습니다.
+              서버에서 image frame은 즉시 중계하고 depth frame만 CUDA 처리 대상으로 분리했으며, 클라이언트의 depth 전송 주기를 조정해 전송량을 줄였습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>트러블슈팅 2 · 처리 병목</h4>
+            <p>
+              CPU에서 모든 픽셀을 보간하면 depth frame 처리 시간이 커져 수신·전송 흐름까지 밀릴 수 있었습니다.
+              depth buffer를 uint16 배열로 변환한 뒤 CUDA kernel로 640x480 데이터를 1280x960으로 확장해 서버 처리 병목을 줄였습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>트러블슈팅 3 · 바이너리 스트림 경계</h4>
+            <p>
+              TCP는 메시지 경계를 보장하지 않기 때문에 프레임 단위로 어디까지 읽어야 하는지 명확한 규칙이 필요했습니다.
+              8바이트 length와 1바이트 type header를 먼저 읽고, length만큼 반복 recv/send하는 방식으로 depth와 JPEG payload를 안정적으로 분리했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>성과</h4>
+            <p>전송 지연을 600ms에서 130ms로 줄여 약 4.6배 개선했고, 연구 결과를 논문과 수상 성과로 연결했습니다.</p>
+          </div>
+          <div class="detail-block">
+            <h4>면접 포인트</h4>
+            <p>단순 API 개발을 넘어 네트워크 전송량, 스레드 처리, 데이터 샘플링을 함께 조정해 성능을 개선한 경험으로 설명할 수 있습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="loadbalancer-modal" role="dialog" aria-modal="true" aria-labelledby="loadbalancer-title">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <h3 id="loadbalancer-title">L4 TCP 로드밸런서</h3>
+          <p>Raw Socket으로 IP/TCP 패킷을 직접 처리한 1인 시스템 프로젝트</p>
+        </div>
+        <button class="modal-close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div class="detail-block architecture-block">
+            <h4>아키텍처 구조</h4>
+            <div class="arch-diagram" aria-label="L4 TCP load balancer architecture diagram">
+              <div class="arch-flow">
+                <div class="arch-node teal"><strong>Client Packet</strong><span>TCP request packet 수신</span></div>
+                <div class="arch-node"><strong>Raw Socket</strong><span>SOCK_RAW, IP_HDRINCL</span></div>
+                <div class="arch-node green"><strong>Parser/NAT</strong><span>IP/TCP 헤더 파싱, 연결 매핑</span></div>
+                <div class="arch-node amber"><strong>Scheduler</strong><span>RR, LC, Resource Based</span></div>
+                <div class="arch-node rose"><strong>Backend</strong><span>선택 서버로 패킷 수정·재전송</span></div>
+              </div>
+              <div class="arch-support">
+                <div><strong>Checksum</strong>Pseudo header 기반 TCP 체크섬 재계산</div>
+                <div><strong>State</strong>NAT table로 요청/응답 연결 추적</div>
+                <div><strong>Health</strong>pthread로 CPU, memory, connection 수집</div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h4>핵심 역할</h4>
+            <ul>
+              <li>Raw Socket 기반 패킷 수신과 재전송 구현</li>
+              <li>Pseudo header 기반 TCP 체크섬 수동 계산</li>
+              <li>NAT 테이블 자료구조 설계</li>
+              <li>3가지 부하분산 알고리즘 구현</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-block">
+            <h4>트러블슈팅 1 · TCP 체크섬 오류</h4>
+            <p>
+              IP/TCP 헤더를 수정하면 기존 체크섬이 무효화되어 패킷이 정상 처리되지 않았습니다.
+              Pseudo header를 구성하고 TCP 체크섬을 직접 재계산해 수정된 패킷이 정상 전달되도록 했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>트러블슈팅 2 · 연결 매핑</h4>
+            <p>
+              클라이언트 요청과 서버 응답을 올바르게 되돌려 보내려면 연결 상태를 추적해야 했습니다.
+              NAT 테이블을 직접 설계해 클라이언트-서버 매핑을 저장하고 응답 패킷의 주소를 재작성했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>성과</h4>
+            <p>커널/네트워크 계층에서 추상화되는 TCP/IP 동작을 코드로 구현하며 패킷 처리와 부하분산 원리를 체득했습니다.</p>
+          </div>
+          <div class="detail-block">
+            <h4>면접 포인트</h4>
+            <p>백엔드 프레임워크뿐 아니라 TCP/IP, 체크섬, NAT, 스케줄링 등 시스템 하부 동작을 이해하고 구현한 경험입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="itaxi-modal" role="dialog" aria-modal="true" aria-labelledby="itaxi-title">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <h3 id="itaxi-title">iTaxi</h3>
+          <p>한동대학교 택시·카풀 동승자 매칭 앱</p>
+        </div>
+        <button class="modal-close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div class="detail-block architecture-block">
+            <h4>아키텍처 구조</h4>
+            <div class="arch-diagram" aria-label="iTaxi architecture diagram">
+              <div class="arch-flow">
+                <div class="arch-node green"><strong>Flutter App</strong><span>택시·카풀 매칭 화면</span></div>
+                <div class="arch-node"><strong>Search Flow</strong><span>동승자 검색, 매칭 액션</span></div>
+                <div class="arch-node teal"><strong>REST API</strong><span>사용자/매칭 데이터 연동</span></div>
+                <div class="arch-node amber"><strong>Database</strong><span>MySQL 기반 매칭 상태</span></div>
+                <div class="arch-node rose"><strong>FCM Push</strong><span>실시간 알림 전달</span></div>
+              </div>
+              <div class="arch-support">
+                <div><strong>State</strong>검색 결과와 매칭 상태 UI 반영</div>
+                <div><strong>Notification</strong>앱 미사용 중에도 알림 전달</div>
+                <div><strong>Users</strong>실제 출시 후 약 800명 사용</div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h4>핵심 역할</h4>
+            <ul>
+              <li>Flutter 프론트엔드 구현</li>
+              <li>FCM 기반 실시간 알림 기능 구현</li>
+              <li>동승자 검색 기능과 REST API 연동</li>
+              <li>기존 앱 UI/UX 개선</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-block">
+            <h4>트러블슈팅 1 · 알림 신뢰성</h4>
+            <p>
+              매칭 서비스는 사용자가 앱을 계속 보고 있지 않아도 상태 변화를 알아야 했습니다.
+              FCM을 연동해 매칭/검색 흐름에서 필요한 시점에 푸시 알림을 전달하도록 구성했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>트러블슈팅 2 · API 연동과 상태</h4>
+            <p>
+              동승자 검색 결과와 사용자 액션이 화면 상태에 즉시 반영되어야 했습니다.
+              REST API 응답 구조에 맞춰 화면 상태와 에러 처리를 정리해 사용 흐름을 개선했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>성과</h4>
+            <p>실제 출시 후 학생 약 800명이 사용한 서비스에서 모바일 화면, 알림, API 연동 경험을 쌓았습니다.</p>
+          </div>
+          <div class="detail-block">
+            <h4>면접 포인트</h4>
+            <p>사용자 수가 있는 앱에서 실시간 알림과 API 연동을 직접 구현해 실제 사용자 흐름을 개선한 경험입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="donggong-modal" role="dialog" aria-modal="true" aria-labelledby="donggong-title">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div>
+          <h3 id="donggong-title">동공확장</h3>
+          <p>동아리 공연 정보 조회, 좌석 선택, 예매/입금 확인을 지원하는 React + Firebase 웹서비스</p>
+        </div>
+        <button class="modal-close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-grid">
+          <div class="detail-block architecture-block">
+            <h4>아키텍처 구조</h4>
+            <div class="arch-diagram" aria-label="Donggong architecture diagram">
+              <div class="arch-flow">
+                <div class="arch-node green"><strong>React App</strong><span>React Router로 Main/Login/Host/MyPage/Admin 분리</span></div>
+                <div class="arch-node"><strong>Responsive UI</strong><span>Desktop/Mobile 컴포넌트 분기</span></div>
+                <div class="arch-node teal"><strong>Seat/Ticket</strong><span>좌석 선택, 결제 화면, 티켓 목록</span></div>
+                <div class="arch-node amber"><strong>Firebase</strong><span>Auth, Firestore, Storage 연동</span></div>
+                <div class="arch-node rose"><strong>State</strong><span>Redux Toolkit + redux-persist 세션 상태</span></div>
+              </div>
+              <div class="arch-support">
+                <div><strong>Routing</strong>Main, Login, Host, MyPage, Admin route 구성</div>
+                <div><strong>Seat State</strong>available, selected, progress, completed 상태 분리</div>
+                <div><strong>Expiration</strong>15분 기준 임시 좌석/티켓 만료 조회</div>
+              </div>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h4>핵심 역할</h4>
+            <ul>
+              <li>React Router 기반 사용자/호스트/관리자/마이페이지 라우팅 구조 구현</li>
+              <li>Firebase Auth, Firestore, Storage 초기 구축 및 프론트엔드 연동</li>
+              <li>좌석 선택, 티켓팅, 결제 페이지의 데스크톱/모바일 반응형 화면 구현</li>
+              <li>Redux Toolkit과 redux-persist로 공연/사용자 상태 유지 구조 구성</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div class="detail-block">
+            <h4>트러블슈팅 1 · 좌석 점유와 만료 처리</h4>
+            <p>
+              좌석 예매는 선택 가능, 선택 중, 결제 진행 중, 예매 완료 상태가 명확해야 합니다.
+              Firestore의 seats/ticketing 데이터를 기준으로 15분 이내의 임시 점유만 유효하게 조회하고,
+              available, selected, progress, completed 상태를 분리해 중복 선택과 혼란을 줄였습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>트러블슈팅 2 · 사용자 역할별 화면 분리</h4>
+            <p>
+              일반 사용자, 호스트, 관리자 화면의 접근 경로와 기능이 달라 라우팅과 상태 관리가 복잡해질 수 있었습니다.
+              React Router로 Main/Login/Host/MyPage/Admin 경로를 분리하고, Firebase Auth와 사용자 타입 정보를 활용해 역할별 흐름을 정리했습니다.
+            </p>
+          </div>
+          <div class="detail-block">
+            <h4>성과</h4>
+            <p>공연 정보 확인, 로그인, 좌석 선택, 티켓팅, 호스트 공연 관리까지 이어지는 예약 서비스 흐름을 React와 Firebase 기반으로 구현했습니다.</p>
+          </div>
+          <div class="detail-block">
+            <h4>면접 포인트</h4>
+            <p>단순 정적 페이지가 아니라 인증, 역할별 라우팅, 좌석 상태, 만료 정책, 반응형 UI가 얽힌 프론트엔드 제품 개발 경험입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="page">
+      <p>Sources: Notion 이력서_임찬혁, github.com/chanhk-im, CRAWebBackend, cra-web-frontend.</p>
+    </div>
+  </footer>
+  <script>
+    const openButtons = document.querySelectorAll("[data-modal]");
+    const modals = document.querySelectorAll(".modal");
+
+    function closeModal(modal) {
+      modal.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    openButtons.forEach((button) => {
+      const openModal = () => {
+        const modal = document.getElementById(button.dataset.modal);
+        if (!modal) return;
+        modal.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        const closeButton = modal.querySelector(".modal-close");
+        if (closeButton) closeButton.focus();
+      };
+
+      button.addEventListener("click", openModal);
+      button.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        openModal();
+      });
+    });
+
+    modals.forEach((modal) => {
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal(modal);
+      });
+
+      const closeButton = modal.querySelector(".modal-close");
+      if (closeButton) {
+        closeButton.addEventListener("click", () => closeModal(modal));
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      document.querySelectorAll(".modal.is-open").forEach(closeModal);
+    });
+  </script>
+</body>
+</html>
