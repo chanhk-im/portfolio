@@ -19,6 +19,21 @@ const skills = [
   ['Etc', 'Socket Programming, Multi-threading, TCP/IP, Unity(C#)'],
 ];
 
+const education = [
+  {
+    id: 'handong',
+    title: '한동대학교',
+    period: 'AI컴퓨터공학심화 전공, GPA 4.03',
+    items: ['SW페스티벌 소프트웨어 공모전 2위', '알고리즘 대회 3위', 'KCC 2024 장려상'],
+  },
+  {
+    id: 'ssafy',
+    title: 'SSAFY 15기',
+    period: '2026.01 - 현재',
+    items: ['삼성 SW 역량테스트 B형 취득', '알고리즘, 웹 개발, 협업 프로젝트 기반 학습 진행', '1학기 성적우수상 수상'],
+  },
+];
+
 const projects = [
   {
     id: 'craweb',
@@ -366,8 +381,15 @@ function App() {
           <div className="page section-head">
             <h2>교육 및 수상</h2>
             <div className="grid two">
-              <div className="card"><h3>한동대학교</h3><p>AI컴퓨터공학심화 전공, GPA 4.03</p><ul><li>SW페스티벌 소프트웨어 공모전 2위</li><li>알고리즘 대회 3위</li><li>KCC 2024 장려상</li></ul></div>
-              <div className="card"><h3>SSAFY 15기</h3><p>2026.01 - 현재</p><ul><li>삼성 SW 역량테스트 B형 취득</li><li>알고리즘, 웹 개발, 협업 프로젝트 기반 학습 진행</li></ul></div>
+              {education.map((entry) => (
+                <div className="card" key={entry.id}>
+                  <h3>{entry.title}</h3>
+                  <p>{entry.period}</p>
+                  <ul>
+                    {entry.items.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         </section>
