@@ -397,7 +397,7 @@ function App() {
 
       <footer>
         <div className="page">
-          <p>Sources: Notion 이력서, github.com/chanhk-im, CRAWebBackend, cra-web-frontend, pupil-dilation.</p>
+          <p>chanhk-im</p>
         </div>
       </footer>
 
