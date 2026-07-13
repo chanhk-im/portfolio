@@ -129,7 +129,7 @@ const projects = [
     title: 'iTaxi',
     visual: 'taxi',
     tags: ['Flutter', 'Firebase', 'Location', 'Matching'],
-    summary: '대학생의 택시 합승을 돕는 위치 기반 매칭 애플리케이션입니다.',
+    summary: '대학생의 택시 합승을 돕는 매칭 애플리케이션입니다.',
     architecture: [
       ['Mobile App', 'Flutter UI and route flow'],
       ['Auth/Data', 'Firebase Auth, Firestore'],
