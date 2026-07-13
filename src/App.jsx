@@ -24,7 +24,7 @@ const education = [
     id: 'handong',
     title: '한동대학교',
     period: 'AI컴퓨터공학심화 전공, GPA 4.03',
-    items: ['SW페스티벌 소프트웨어 공모전 2위', '알고리즘 대회 3위', 'KCC 2024 장려상'],
+    items: ['SW페스티벌 소프트웨어 공모전 2위', '알고리즘 대회 3회 수상', 'KCC 2024 장려상'],
   },
   {
     id: 'ssafy',
