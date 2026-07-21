@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const navItems = [
   ['home', 'Main'],
@@ -201,6 +201,240 @@ function GithubIcon() {
   );
 }
 
+function TerminalIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="16" rx="2" strokeWidth="1.7" />
+      <path d="m7 9 3 3-3 3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M13 15h4" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+const TERMINAL_HELP = [
+  'help                도움말 표시',
+  'whoami              자기소개',
+  'about               소개',
+  'skills              기술 스택',
+  'projects            프로젝트 목록',
+  'open <id>           프로젝트 상세 열기',
+  'education           교육 및 수상',
+  'contact             연락처',
+  'ping [target]       네트워크 레이턴시 시뮬레이션',
+  'netstat             연결 상태 확인',
+  'date                현재 시간',
+  'echo <text>         입력 그대로 출력',
+  'clear               화면 지우기',
+  'exit                터미널 닫기',
+];
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function Terminal({ open, onClose, onOpenProject }) {
+  const [lines, setLines] = useState([]);
+  const [input, setInput] = useState('');
+  const [history, setHistory] = useState([]);
+  const [histIndex, setHistIndex] = useState(-1);
+  const [busy, setBusy] = useState(false);
+  const inputRef = useRef(null);
+  const bodyRef = useRef(null);
+  const idRef = useRef(0);
+
+  useEffect(() => {
+    if (open && lines.length === 0) {
+      idRef.current = 0;
+      setLines([
+        { id: idRef.current++, kind: 'system', text: 'chanhk-im portfolio shell v1.0' },
+        { id: idRef.current++, kind: 'system', text: "'help' 를 입력해 사용 가능한 명령어를 확인하세요." },
+      ]);
+    }
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  useEffect(() => {
+    if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+  }, [lines, open]);
+
+  const push = (kind, text) => setLines((prev) => [...prev, { id: idRef.current++, kind, text }]);
+  const pushMany = (kind, arr) => setLines((prev) => [...prev, ...arr.map((text) => ({ id: idRef.current++, kind, text }))]);
+
+  async function run(raw) {
+    const trimmed = raw.trim();
+    push('input', trimmed);
+    if (!trimmed) return;
+
+    const [cmd, ...args] = trimmed.split(/\s+/);
+
+    switch (cmd) {
+      case 'help':
+        pushMany('output', TERMINAL_HELP);
+        break;
+      case 'whoami':
+        pushMany('output', [
+          'chanhk-im',
+          'System Developer — Backend & Low-level Network',
+          'Spring Boot 기반 서비스부터 Raw Socket, TCP/IP까지 직접 구현하며 동작 원리를 확인합니다.',
+        ]);
+        break;
+      case 'about':
+        pushMany('output', [
+          '기능 구현에서 끝내지 않고 성능 병목, 데이터 정합성, 운영 장애 추적까지 함께 고민합니다.',
+          'CRAWeb에서는 백엔드/배포/모니터링을 구축했고, Point Cloud 프로젝트에서는 전송 지연을 600ms에서 130ms로 줄였습니다.',
+        ]);
+        break;
+      case 'skills':
+        pushMany('output', skills.map(([name, value]) => `${name.padEnd(14)} ${value}`));
+        break;
+      case 'projects':
+        pushMany('output', [
+          ...projects.map((p) => `${p.id.padEnd(14)} ${p.title}`),
+          '',
+          "'open <id>' 로 상세 정보를 볼 수 있습니다.",
+        ]);
+        break;
+      case 'open': {
+        const target = projects.find((p) => p.id === args[0]);
+        if (!target) {
+          push('error', `open: project not found: ${args[0] ?? ''} (try 'projects')`);
+          break;
+        }
+        push('output', `Opening ${target.title} ...`);
+        onOpenProject(target);
+        onClose();
+        break;
+      }
+      case 'education':
+        pushMany('output', education.flatMap((entry) => [
+          `${entry.title} (${entry.period})`,
+          ...entry.items.map((item) => `  - ${item}`),
+        ]));
+        break;
+      case 'contact':
+        pushMany('output', [
+          'email   cfasd1875@gmail.com',
+          'github  https://github.com/chanhk-im',
+        ]);
+        break;
+      case 'netstat':
+        pushMany('output', [
+          'Proto  Local Address       Foreign Address        State',
+          'tcp    127.0.0.1:8080      craweb-api:https       ESTABLISHED',
+          'tcp    127.0.0.1:9000      loadbalancer:tcp       ESTABLISHED',
+          'tcp    127.0.0.1:5432      mysql-db:5432          ESTABLISHED',
+          'tcp    127.0.0.1:6379      redis-token:6379       ESTABLISHED',
+          'udp    127.0.0.1:3000      pointcloud-stream:*    LISTEN',
+        ]);
+        break;
+      case 'ping': {
+        const target = args[0] || 'pointcloud-stream';
+        setBusy(true);
+        push('output', `PING ${target}: 56 data bytes`);
+        const samples = [612, 398, 201, 130];
+        for (let i = 0; i < samples.length; i += 1) {
+          await wait(260);
+          push('output', `64 bytes from ${target}: icmp_seq=${i} ttl=64 time=${samples[i]}.0 ms`);
+        }
+        await wait(200);
+        pushMany('output', [
+          `--- ${target} ping statistics ---`,
+          '4 packets transmitted, 4 received, 0% packet loss',
+          `min/avg/max = ${Math.min(...samples)}/335/${Math.max(...samples)} ms`,
+          '(Point Cloud 프로젝트에서 프레임 스킵 + 병렬 처리로 이 지연을 실제로 개선했습니다)',
+        ]);
+        setBusy(false);
+        break;
+      }
+      case 'date':
+        push('output', new Date().toString());
+        break;
+      case 'echo':
+        push('output', args.join(' '));
+        break;
+      case 'sudo':
+        push('error', 'Permission denied: chanhk-im is not in the sudoers file. (여긴 그냥 포트폴리오입니다)');
+        break;
+      case 'clear':
+        setLines([]);
+        break;
+      case 'exit':
+      case 'close':
+        onClose();
+        break;
+      default:
+        push('error', `command not found: ${cmd} (type 'help')`);
+    }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (busy || !input.trim()) return;
+    const value = input;
+    setInput('');
+    setHistory((prev) => [...prev, value]);
+    setHistIndex(-1);
+    run(value);
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (!history.length) return;
+      const nextIndex = histIndex < 0 ? history.length - 1 : Math.max(0, histIndex - 1);
+      setHistIndex(nextIndex);
+      setInput(history[nextIndex]);
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      if (histIndex < 0) return;
+      const nextIndex = histIndex + 1;
+      if (nextIndex >= history.length) {
+        setHistIndex(-1);
+        setInput('');
+      } else {
+        setHistIndex(nextIndex);
+        setInput(history[nextIndex]);
+      }
+    } else if (event.key === 'Escape') {
+      onClose();
+    }
+  }
+
+  if (!open) return null;
+
+  return (
+    <div className="terminal-window" role="dialog" aria-label="터미널">
+      <div className="terminal-header">
+        <div className="terminal-dots"><span /><span /><span /></div>
+        <span className="terminal-title">chanhk-im@portfolio: ~</span>
+        <button type="button" className="terminal-close" onClick={onClose} aria-label="터미널 닫기">×</button>
+      </div>
+      <div className="terminal-body" ref={bodyRef} onClick={() => inputRef.current?.focus()}>
+        {lines.map((line) => (
+          <div className={`terminal-line ${line.kind}`} key={line.id}>
+            {line.kind === 'input'
+              ? <><span className="terminal-prompt">chanhk-im@portfolio:~$</span> {line.text}</>
+              : (line.text || ' ')}
+          </div>
+        ))}
+        <form className="terminal-input-row" onSubmit={handleSubmit}>
+          <span className="terminal-prompt">chanhk-im@portfolio:~$</span>
+          <input
+            ref={inputRef}
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={busy}
+            autoComplete="off"
+            spellCheck="false"
+            aria-label="터미널 입력"
+          />
+        </form>
+      </div>
+    </div>
+  );
+}
+
 function ProjectCard({ project, onOpen }) {
   return (
     <article className="card project">
@@ -285,6 +519,19 @@ function ProjectModal({ project, onClose }) {
 
 function App() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [terminalOpen, setTerminalOpen] = useState(false);
+
+  useEffect(() => {
+    function handleKey(event) {
+      const tag = event.target.tagName;
+      if (event.key === '`' && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+        event.preventDefault();
+        setTerminalOpen((prev) => !prev);
+      }
+    }
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
 
   return (
     <>
@@ -397,6 +644,23 @@ function App() {
       </footer>
 
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+
+      {!terminalOpen && (
+        <button
+          type="button"
+          className="terminal-toggle"
+          onClick={() => setTerminalOpen(true)}
+          aria-label="터미널 열기"
+          title="터미널 열기 (단축키: `)"
+        >
+          <TerminalIcon />
+        </button>
+      )}
+      <Terminal
+        open={terminalOpen}
+        onClose={() => setTerminalOpen(false)}
+        onOpenProject={setSelectedProject}
+      />
     </>
   );
 }
