@@ -1,7 +1,7 @@
 import { GithubIcon, MailIcon } from './Icons';
 
 export function Navigation({ items }) {
-  return <nav><div className="page">{items.map(([id, label]) => <a href={`#${id}`} key={id}>{label}</a>)}</div></nav>;
+  return <nav><div className="page">{items.map(([id, label]) => <a href={`#${id}`} key={id}>{label}</a>)}<a href="#/blog">Blog</a></div></nav>;
 }
 
 export function Hero({ profile }) {

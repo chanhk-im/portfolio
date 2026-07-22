@@ -5,10 +5,12 @@ import { Footer, Hero, Navigation } from './components/PageLayout';
 import PortfolioSections from './components/PortfolioSections';
 import ProjectModal from './components/ProjectModal';
 import Terminal from './components/Terminal';
+import { BlogPage, BlogPost } from './components/Blog';
 
 function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [hash, setHash] = useState(window.location.hash);
 
   useEffect(() => {
     function handleKey(event) {
@@ -21,6 +23,47 @@ function App() {
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, []);
+
+  useEffect(() => {
+    const handleHashChange = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    if (hash.startsWith('#/blog')) {
+      window.scrollTo({ top: 0, left: 0 });
+    } else if (hash.length > 1) {
+      requestAnimationFrame(() => document.getElementById(hash.slice(1))?.scrollIntoView());
+    }
+  }, [hash]);
+
+  if (hash === '#/blog' || hash === '#/blog/') {
+    return (
+      <>
+        <Navigation items={portfolio.navItems} />
+        <BlogPage />
+        <Footer handle={portfolio.profile.handle} />
+      </>
+    );
+  }
+
+  const postMatch = hash.match(/^#\/blog\/(.+)$/);
+  if (postMatch) {
+    let postSlug = postMatch[1];
+    try {
+      postSlug = decodeURIComponent(postSlug);
+    } catch {
+      // Keep the raw value so malformed URLs render the not-found state.
+    }
+    return (
+      <>
+        <Navigation items={portfolio.navItems} />
+        <BlogPost slug={postSlug} />
+        <Footer handle={portfolio.profile.handle} />
+      </>
+    );
+  }
 
   return (
     <>
