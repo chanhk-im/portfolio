@@ -71,9 +71,7 @@ header {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(160px, .35fr);
-  gap: 46px;
+  display: block;
   align-items: center;
   padding: 48px 0;
 }
@@ -104,17 +102,12 @@ h1 {
   word-break: keep-all;
 }
 
-.hero-panel {
-  display: grid;
-  justify-content: end;
-  gap: 14px;
-}
-
 .contact-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+  margin-top: 22px;
 }
 
 .contact-item {
@@ -650,7 +643,8 @@ footer {
 }
 
 .terminal-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 42px;
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
@@ -658,20 +652,28 @@ footer {
   border-bottom: 1px solid #1f2937;
 }
 
+.terminal-header::after { content: ""; }
+
 .terminal-dots {
   display: flex;
   gap: 6px;
 }
 
-.terminal-dots span {
+.terminal-dots span,
+.terminal-dot-close {
   width: 10px;
   height: 10px;
+  padding: 0;
+  border: none;
   border-radius: 999px;
   background: #ef4444;
 }
 
-.terminal-dots span:nth-child(2) { background: #f59e0b; }
-.terminal-dots span:nth-child(3) { background: #22c55e; }
+.terminal-dot-close { cursor: pointer; }
+.terminal-dot-close:hover { box-shadow: inset 0 0 0 1px rgba(127, 29, 29, .65); }
+.terminal-dot-close:focus-visible { outline: 2px solid #fca5a5; outline-offset: 2px; }
+.terminal-dots span:nth-of-type(1) { background: #f59e0b; }
+.terminal-dots span:nth-of-type(2) { background: #22c55e; }
 
 .terminal-title {
   flex: 1;
@@ -679,21 +681,6 @@ footer {
   font-size: 12px;
   text-align: center;
 }
-
-.terminal-close {
-  flex: 0 0 auto;
-  width: 22px;
-  height: 22px;
-  border: none;
-  border-radius: 999px;
-  background: transparent;
-  color: #94a3b8;
-  font-size: 16px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.terminal-close:hover { color: #e2e8f0; }
 
 .terminal-body {
   overflow-y: auto;
@@ -759,11 +746,8 @@ footer {
   .page { width: min(100% - 28px, 1120px); }
   header { min-height: calc(100svh - 58px); }
   .hero {
-    grid-template-columns: 1fr;
-    gap: 28px;
     padding-block: 44px;
   }
-  .hero-panel { justify-content: start; }
   .section-head {
     grid-template-columns: 1fr;
     gap: 20px;
