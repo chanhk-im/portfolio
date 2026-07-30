@@ -464,6 +464,39 @@ li { color: #475467; }
   color: var(--muted);
 }
 
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.project-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 11px;
+  border: 1px solid #cbd9ea;
+  border-radius: 7px;
+  background: #f7faff;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color .16s ease, background .16s ease, transform .16s ease;
+}
+
+.project-links a:hover {
+  border-color: var(--blue);
+  background: #eef5ff;
+  transform: translateY(-1px);
+}
+
+.project-links a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
 .modal-close {
   flex: 0 0 auto;
   width: 38px;

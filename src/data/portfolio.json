@@ -60,6 +60,10 @@
   "projects": [
     {
       "id": "craweb",
+      "links": {
+        "github": "https://github.com/Computer-Research-Association/CRAWebBackend",
+        "web": "https://cra206.org/"
+      },
       "title": "CRA 동아리 공식 웹사이트",
       "tags": [
         "Java",
@@ -130,6 +134,10 @@
     },
     {
       "id": "pointcloud",
+      "links": {
+        "github": "",
+        "web": ""
+      },
       "title": "Point Cloud 실시간 스트리밍 서버",
       "visual": "pointcloud",
       "tags": [
@@ -196,6 +204,10 @@
     },
     {
       "id": "loadbalancer",
+      "links": {
+        "github": "https://github.com/chanhk-im/load-balancer-l4",
+        "web": ""
+      },
       "title": "L4 TCP 로드밸런서",
       "visual": "network",
       "tags": [
@@ -261,6 +273,10 @@
     },
     {
       "id": "itaxi",
+      "links": {
+        "github": "https://github.com/I-Taxi/itaxi-front",
+        "web": ""
+      },
       "title": "iTaxi",
       "visual": "taxi",
       "tags": [
@@ -325,6 +341,10 @@
     },
     {
       "id": "donggong",
+      "links": {
+        "github": "https://github.com/pupil-dilation/pupil-dilation",
+        "web": ""
+      },
       "title": "동공확장",
       "tags": [
         "React",

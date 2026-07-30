@@ -16,7 +16,24 @@ export default function ProjectModal({ project, onClose }) {
     <div className="modal" onClick={onClose}>
       <div className="modal-panel" onClick={(event) => event.stopPropagation()}>
         <div className="modal-header">
-          <div><h3>{project.title}</h3><p>{project.summary}</p></div>
+          <div>
+            <h3>{project.title}</h3>
+            <p>{project.summary}</p>
+            {(project.links?.github || project.links?.web) && (
+              <div className="project-links" aria-label="프로젝트 링크">
+                {project.links.github && (
+                  <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                    GitHub <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+                {project.links.web && (
+                  <a href={project.links.web} target="_blank" rel="noopener noreferrer">
+                    Web <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
           <button className="modal-close" type="button" onClick={onClose} aria-label="닫기">×</button>
         </div>
         <div className="modal-body">
