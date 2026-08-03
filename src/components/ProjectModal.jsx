@@ -19,6 +19,13 @@ export default function ProjectModal({ project, onClose }) {
           <div>
             <h3>{project.title}</h3>
             <p>{project.summary}</p>
+            <div className="contribution-detail" aria-label={`프로젝트 기여도 ${project.contribution}%`}>
+              <span>기여도</span>
+              <strong>{project.contribution}%</strong>
+              <div className="contribution-track" aria-hidden="true">
+                <span style={{ width: `${project.contribution}%` }} />
+              </div>
+            </div>
             {(project.links?.github || project.links?.web) && (
               <div className="project-links" aria-label="프로젝트 링크">
                 {project.links.github && (

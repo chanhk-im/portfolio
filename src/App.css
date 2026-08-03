@@ -312,6 +312,24 @@ li { color: #475467; }
   font-size: 20px;
 }
 
+.project-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.contribution-badge {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: #e9f8f1;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+}
+
 .project-title {
   grid-area: title;
   min-width: 0;
@@ -462,6 +480,38 @@ li { color: #475467; }
 .modal-header p {
   margin: 6px 0 0;
   color: var(--muted);
+}
+
+.contribution-detail {
+  display: grid;
+  grid-template-columns: auto auto minmax(100px, 180px);
+  gap: 8px;
+  align-items: center;
+  width: fit-content;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.contribution-detail strong {
+  color: var(--green);
+  font-size: 14px;
+}
+
+.contribution-track {
+  width: 160px;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e8eef5;
+}
+
+.contribution-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
 }
 
 .project-links {
