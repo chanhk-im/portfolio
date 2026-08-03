@@ -3,6 +3,7 @@ import portfolio from './data/portfolio.json';
 import { TerminalIcon } from './components/Icons';
 import { Footer, Hero, Navigation } from './components/PageLayout';
 import PortfolioSections from './components/PortfolioSections';
+import PrintProjects from './components/PrintProjects';
 import ProjectModal from './components/ProjectModal';
 import Terminal from './components/Terminal';
 
@@ -27,6 +28,7 @@ function App() {
       <Navigation items={portfolio.navItems} />
       <Hero profile={portfolio.profile} />
       <PortfolioSections data={portfolio} onOpenProject={setSelectedProject} />
+      <PrintProjects projects={portfolio.projects} />
       <Footer handle={portfolio.profile.handle} />
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       {!terminalOpen && (
