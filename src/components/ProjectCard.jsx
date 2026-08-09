@@ -2,7 +2,10 @@ export default function ProjectCard({ project, onOpen }) {
   return (
     <article className="card project">
       <div className="project-title">
-        <h3>{project.title}</h3>
+        <div className="project-heading">
+          <h3>{project.title}</h3>
+          <span className="contribution-badge">기여도 {project.contribution}%</span>
+        </div>
         <p>{project.summary}</p>
       </div>
       <div className="tags">

@@ -25,3 +25,13 @@ export function TerminalIcon() {
     </svg>
   );
 }
+
+export function DownloadIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 3v12" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="m7.5 10.5 4.5 4.5 4.5-4.5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 20h14" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
