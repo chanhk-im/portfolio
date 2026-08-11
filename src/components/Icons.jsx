@@ -16,16 +16,6 @@ export function GithubIcon() {
   );
 }
 
-export function TerminalIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="16" rx="2" strokeWidth="1.7" />
-      <path d="m7 9 3 3-3 3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M13 15h4" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 export function DownloadIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
