@@ -6,7 +6,8 @@ export default function ProjectCard({ project, onOpen }) {
           <h3>{project.title}</h3>
           <span className="contribution-badge">기여도 {project.contribution}%</span>
         </div>
-        <p>{project.summary}</p>
+        {project.period && <p className="project-period">{project.period}</p>}
+        <p className="project-summary">{project.summary}</p>
       </div>
       <div className="tags">
         {project.tags.map((tag) => <span key={tag}>{tag}</span>)}

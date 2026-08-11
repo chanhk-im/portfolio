@@ -13,14 +13,19 @@ export function Navigation({ items }) {
 export function Hero({ profile }) {
   return (
     <header id="home"><div className="page hero">
-      <div>
+      <div className="hero-intro">
         <p className="eyebrow">{profile.eyebrow}</p>
         <h1>{profile.name}</h1>
-        <p className="hero-copy">{profile.hero}</p>
-        <div className="contact-list" aria-label="contact">
-          <a className="contact-item" href={`mailto:${profile.email}`} aria-label="Email"><MailIcon /></a>
-          <a className="contact-item" href={profile.github} aria-label="GitHub"><GithubIcon /></a>
-        </div>
+      </div>
+      <div className="contact-list" aria-label="contact">
+        <a className="contact-item" href={`mailto:${profile.email}`}>
+          <span className="contact-icon"><MailIcon /></span>
+          <span>{profile.email}</span>
+        </a>
+        <a className="contact-item" href={profile.github}>
+          <span className="contact-icon"><GithubIcon /></span>
+          <span>{profile.handle}</span>
+        </a>
       </div>
     </div></header>
   );

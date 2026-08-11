@@ -34,7 +34,7 @@
     "runtime": null
   },
   "build": {
-    "buildCommand": "node -e \"JSON.parse(require('fs').readFileSync('C:/Users/SSAFY/code/portfolio/src/data/portfolio.json','utf8')); console.log('valid json')\" && cd \"C:\\Users\\SSAFY\\code\\portfolio\" && npm run build 2>&1 | tail -20",
+    "buildCommand": "cd \"C:\\Users\\SSAFY\\code\\portfolio\" && npm run build 2>&1 | tail -15",
     "testCommand": null,
     "lintCommand": null,
     "devCommand": "npm run dev",
@@ -149,28 +149,46 @@
   },
   "hotPaths": [
     {
+      "path": "src/App.css",
+      "accessCount": 101,
+      "lastAccessed": 1786432672270,
+      "type": "directory"
+    },
+    {
       "path": "src/data/portfolio.json",
-      "accessCount": 19,
-      "lastAccessed": 1786426265562,
+      "accessCount": 48,
+      "lastAccessed": 1786431567550,
       "type": "file"
     },
     {
-      "path": "src/App.css",
-      "accessCount": 12,
-      "lastAccessed": 1786409987432,
+      "path": "src/components/ProjectCard.jsx",
+      "accessCount": 10,
+      "lastAccessed": 1786431043478,
       "type": "directory"
     },
     {
       "path": "src/components/ProjectModal.jsx",
-      "accessCount": 4,
-      "lastAccessed": 1786409944793,
+      "accessCount": 6,
+      "lastAccessed": 1786427350552,
       "type": "file"
     },
     {
       "path": "src/components/PrintProjects.jsx",
-      "accessCount": 4,
-      "lastAccessed": 1786409954994,
+      "accessCount": 6,
+      "lastAccessed": 1786427357998,
       "type": "file"
+    },
+    {
+      "path": "src/components/PageLayout.jsx",
+      "accessCount": 6,
+      "lastAccessed": 1786432289901,
+      "type": "file"
+    },
+    {
+      "path": "src",
+      "accessCount": 5,
+      "lastAccessed": 1786431524217,
+      "type": "directory"
     },
     {
       "path": ".claude/launch.json",
@@ -179,9 +197,9 @@
       "type": "file"
     },
     {
-      "path": "src/components/ProjectCard.jsx",
+      "path": "src/components/PortfolioSections.jsx",
       "accessCount": 2,
-      "lastAccessed": 1786408574956,
+      "lastAccessed": 1786430945621,
       "type": "directory"
     },
     {
@@ -191,15 +209,21 @@
       "type": "file"
     },
     {
-      "path": "src",
-      "accessCount": 1,
-      "lastAccessed": 1786408309945,
-      "type": "directory"
-    },
-    {
       "path": "vite.config.js",
       "accessCount": 1,
       "lastAccessed": 1786408461083,
+      "type": "file"
+    },
+    {
+      "path": "src/App.jsx",
+      "accessCount": 1,
+      "lastAccessed": 1786431508655,
+      "type": "file"
+    },
+    {
+      "path": "index.html",
+      "accessCount": 1,
+      "lastAccessed": 1786432843820,
       "type": "file"
     }
   ],

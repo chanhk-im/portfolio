@@ -18,6 +18,7 @@ export default function ProjectModal({ project, onClose }) {
         <div className="modal-header">
           <div>
             <h3>{project.title}</h3>
+            {project.period && <p className="project-period">{project.period}</p>}
             <div className="contribution-detail" aria-label={`프로젝트 기여도 ${project.contribution}%`}>
               <span>기여도</span>
               <strong>{project.contribution}%</strong>

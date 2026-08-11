@@ -1,7 +1,7 @@
 {
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"gh --version 2>&1; echo \\\"---\\\"; gh auth status 2>&1\"}",
-  "error": "Exit code 127\n/usr/bin/bash: line 1: gh: command not found\n---\n/usr/bin/bash: line 1: gh: command not found",
-  "timestamp": "2026-08-11T05:29:21.438Z",
-  "retry_count": 1
+  "tool_name": "mcp__Claude_Browser__computer",
+  "tool_input_preview": "{\"action\":\"screenshot\",\"tabId\":\"seed\"}",
+  "error": "screenshot failed: Screenshot timed out after 5s: the Browser pane is not displayed, so the page is not compositing frames. Display the pane and retry.",
+  "timestamp": "2026-08-11T07:12:10.769Z",
+  "retry_count": 2
 }

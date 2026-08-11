@@ -7,7 +7,7 @@ export default function PortfolioSections({ data, onOpenProject }) {
       <section id="about"><div className="page section-head"><h2>About</h2><div><p className="lead">{about.join(' ')}</p></div></div></section>
       <section id="strengths" className="compact-section"><div className="page section-head">
         <h2>핵심 역량</h2>
-        <div className="grid three">{strengths.map((strength) => <div className="card compact-card" key={strength.title}><h3>{strength.title}</h3><p>{strength.description}</p></div>)}</div>
+        <div className="grid strength-list">{strengths.map((strength) => <div className="card compact-card" key={strength.title}><h3>{strength.title}</h3><p>{strength.description}</p></div>)}</div>
       </div></section>
       <section id="projects"><div className="page section-head">
         <h2>프로젝트</h2>

@@ -8,6 +8,7 @@ export default function PrintProjects({ projects }) {
             <header className="print-project-header">
               <div>
                 <h3>{project.title}</h3>
+                {project.period && <p className="print-project-period">{project.period}</p>}
               </div>
               <strong>기여도 {project.contribution}%</strong>
             </header>
