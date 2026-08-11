@@ -119,14 +119,33 @@
         "Redis 토큰 저장소와 운영 모니터링 환경 구축"
       ],
       "trouble": [
-        [
-          "게시글 목록 N+1 쿼리",
-          "게시글 목록에서 연관 엔티티를 불러올 때 N+1 쿼리가 발생했습니다. 작성자는 Fetch Join으로 조회하고 페이지네이션이 적용된 댓글과 좋아요는 BatchSize로 묶어 조회하도록 전략을 분리했습니다."
-        ],
-        [
-          "아이디 찾기 403 오류",
-          "비로그인 사용자의 아이디 찾기 요청이 403으로 차단됐습니다. 엔드포인트의 HTTP 메서드와 SecurityFilterChain 허용 규칙이 일치하지 않는 것이 원인이었습니다. GET 계정 관리 경로를 명시적으로 허용해 해결했습니다."
-        ]
+        {
+          "title": "게시글 목록 N+1 쿼리",
+          "situation": "게시글 8건을 조회하는데 28개의 쿼리(35.58ms)가 발생했습니다. 작성자를 게시글 수만큼 개별 조회했고, 댓글과 좋아요도 게시글마다 따로 조회됐습니다.",
+          "action": [
+            "작성자는 Fetch Join으로 목록 쿼리에 합치고, 댓글/좋아요는 BatchSize로 묶어 IN 절 배치 조회로 전환 → 28개(35.58ms) → 14개(16.3ms)",
+            "로그에 작성자 수만큼 좋아요 조회가 반복되는 것을 확인 → User.likes가 기본 EAGER인 것을 찾아 LAZY로 전환 → 14개(16.3ms) → 9개(12.6ms)",
+            "같은 방식으로 로그를 다시 보니 역할(roles) 조회도 작성자 수만큼 반복 → User.roles도 LAZY로 전환 → 9개(12.6ms) → 4개(6.5ms)"
+          ],
+          "result": "게시글 수와 무관하게 4개의 고정 쿼리(6.5ms)로 감소. 쿼리 수 1/7, 실행 시간 약 5.5배 개선.",
+          "code": {
+            "language": "java",
+            "snippet": "// 1) 목록 쿼리에서 작성자를 Fetch Join으로 한 번에 조회\n@Query(\"select b from Board b join fetch b.user \" +\n       \"where b.category = :category and b.deleted = false order by b.createdAt asc\")\nList<Board> findAllByCategory(@Param(\"category\") Category category, Pageable pageable);\n\n// 2) 게시글의 댓글/좋아요는 BatchSize로 묶어 IN 절 배치 조회\n@Entity\npublic class Board {\n    @BatchSize(size = 100)\n    @OneToMany(mappedBy = \"board\")\n    private List<Comment> comments;\n\n    @BatchSize(size = 100)\n    @OneToMany(mappedBy = \"board\")\n    private List<Likes> likes;\n}\n\n// 3) User의 roles/likes는 기본 EAGER라 작성자가 조회될 때마다 함께 로딩됨\n//    실제 사용 시점에만 조회되도록 LAZY로 전환\n@Entity\npublic class User {\n    @ElementCollection(fetch = FetchType.LAZY)\n    private Set<Role> roles;\n\n    @OneToMany(mappedBy = \"user\", fetch = FetchType.LAZY)\n    private List<Likes> likes;\n}\n\n// 결과: 게시글 8건 기준 28개 쿼리(35.58ms) -> 4개 쿼리(6.5ms)"
+          }
+        },
+        {
+          "title": "관리자 API 권한 우회",
+          "situation": "authorizeHttpRequests에 계정 관련 POST 요청을 모두 허용하는 규칙(/api/account/**)이 관리자 전용 규칙(/api/account/admin/**, ADMIN 권한)보다 먼저 선언돼 있었습니다. Spring Security는 먼저 매칭되는 규칙을 적용하기 때문에, 관리자 하위 경로 요청도 앞의 permitAll 규칙에 먼저 매칭되면서 ADMIN 권한 검사 없이 관리자 API에 접근할 수 있는 상태였습니다.",
+          "action": [
+            "authorizeHttpRequests의 매처는 선언 순서대로 첫 번째로 매칭되는 규칙이 적용된다는 점을 코드 리뷰 중 확인",
+            "더 넓은 경로(/api/account/**)의 permitAll 규칙을 더 좁은 경로(/api/account/admin/**)의 ADMIN 권한 규칙 뒤로 재배치"
+          ],
+          "result": "관리자 전용 API가 실제로 ADMIN 권한 검사를 통과해야만 접근 가능하도록 수정했습니다. 발견 즉시 super hotfix로 긴급 배포했습니다.",
+          "code": {
+            "language": "java",
+            "snippet": "// Before: 넓은 경로의 permitAll이 관리자 전용 규칙보다 먼저 선언됨\n// -> \"/api/account/**\"에 먼저 매칭되어 admin 하위 경로도 인증 없이 통과\n.authorizeHttpRequests(authorize -> authorize\n    .requestMatchers(\"/api/auth/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/account/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/account/admin/**\").hasRole(\"ADMIN\")\n    .requestMatchers(HttpMethod.POST, \"/api/**\").hasAnyRole(\"USER\", \"ADMIN\")\n);\n\n// After: 좁은 경로(관리자 전용)를 먼저 선언해 우선 매칭되도록 순서 변경\n.authorizeHttpRequests(authorize -> authorize\n    .requestMatchers(\"/api/auth/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/account/admin/**\").hasRole(\"ADMIN\")\n    .requestMatchers(HttpMethod.POST, \"/api/account/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/**\").hasAnyRole(\"USER\", \"ADMIN\")\n);"
+          }
+        }
       ],
       "result": "34개의 이슈를 등록하고 37개의 PR을 병합했습니다. 핵심 API 개발부터 파일 처리와 배포 및 성능 개선까지 백엔드 전반에 기여했습니다."
     },
@@ -190,14 +209,30 @@
         "국내 학술 논문 게재 및 KCC 2024 장려상 수상"
       ],
       "trouble": [
-        [
-          "대용량 프레임 지연",
-          "Point Cloud 데이터는 프레임 크기가 커서 네트워크 지연이 누적됐습니다. depth 정보를 매 프레임 보내지 않고 7프레임당 1회 전송하도록 조정해 전송량을 줄였습니다."
-        ],
-        [
-          "다중 수신 안정성",
-          "클라이언트별 세션과 송수신 타이밍을 분리하고 병렬 처리 구조를 적용해 한 클라이언트의 지연이 전체 스트림을 막지 않도록 개선했습니다."
-        ]
+        {
+          "title": "대용량 프레임 지연",
+          "situation": "Point Cloud 데이터는 프레임 크기가 커서 네트워크 지연이 누적됐습니다.",
+          "action": [
+            "depth 정보를 매 프레임 대신 7프레임당 1회만 전송하도록 전송 주기를 조정해 전송량을 감소"
+          ],
+          "result": "전송량 감소로 지연 누적이 완화됐습니다.",
+          "code": {
+            "language": "cpp",
+            "snippet": "// 매 프레임 depth를 보내던 기존 로직을 7프레임당 1회 전송으로 조정\nif (frameCount % DEPTH_SEND_INTERVAL == 0) { // DEPTH_SEND_INTERVAL = 7\n    sendDepthFrame(depthBuffer);\n}\nsendColorFrame(colorBuffer); // 컬러 프레임은 매번 전송\nframeCount++;"
+          }
+        },
+        {
+          "title": "다중 수신 안정성",
+          "situation": "클라이언트별 세션과 송수신 타이밍이 얽혀 한 클라이언트의 지연이 전체 스트림을 막았습니다.",
+          "action": [
+            "클라이언트별로 독립된 스레드에서 세션과 송수신을 처리하도록 병렬 처리 구조로 분리"
+          ],
+          "result": "한 클라이언트의 지연이 다른 클라이언트로 전파되지 않도록 개선했습니다.",
+          "code": {
+            "language": "cpp",
+            "snippet": "// 클라이언트별로 독립된 스레드에서 송수신을 처리해\n// 한 클라이언트의 지연이 다른 클라이언트로 전파되지 않도록 분리\nfor (auto& client : clients) {\n    std::thread(&SocketServer::handleClientSession, this, client).detach();\n}"
+          }
+        }
       ],
       "result": "실시간 3D 데이터 전송 지연을 약 4.6배 개선하며 저수준 네트워크와 성능 최적화 경험을 확보했습니다."
     },
@@ -260,14 +295,30 @@
         "라운드로빈 기반 백엔드 선택 로직 구현"
       ],
       "trouble": [
-        [
-          "체크섬 불일치",
-          "패킷 헤더를 수정한 뒤 체크섬을 다시 계산하지 않아 응답 패킷이 드롭됐습니다. IP/TCP 체크섬 재계산을 분리해 수정 후 항상 갱신되도록 만들었습니다."
-        ],
-        [
-          "양방향 매핑",
-          "요청과 응답의 주소 변환 방향이 달라 세션 식별이 꼬였습니다. NAT 테이블에 원본 클라이언트와 선택된 백엔드를 함께 기록해 응답 복원을 안정화했습니다."
-        ]
+        {
+          "title": "체크섬 불일치",
+          "situation": "패킷 헤더를 수정한 뒤 체크섬을 다시 계산하지 않아 응답 패킷이 드롭됐습니다.",
+          "action": [
+            "체크섬 재계산 로직을 헤더 수정 로직과 분리해, 헤더가 바뀔 때마다 항상 재계산되도록 수정"
+          ],
+          "result": "체크섬 불일치로 인한 패킷 드롭이 해결됐습니다.",
+          "code": {
+            "language": "c",
+            "snippet": "void rewrite_packet(struct iphdr *ip, struct tcphdr *tcp,\n                     uint32_t new_addr, uint16_t new_port) {\n    ip->daddr = new_addr;\n    tcp->dest = new_port;\n\n    // 헤더 수정 후 체크섬을 반드시 재계산\n    ip->check = 0;\n    ip->check = checksum((uint16_t *)ip, ip->ihl * 4);\n    tcp->check = tcp_checksum(ip, tcp);\n}"
+          }
+        },
+        {
+          "title": "양방향 매핑",
+          "situation": "요청과 응답의 주소 변환 방향이 달라 세션 식별이 꼬였습니다.",
+          "action": [
+            "NAT 테이블에 원본 클라이언트와 선택된 백엔드를 함께 기록하도록 구조 변경"
+          ],
+          "result": "응답 경로 복원이 안정화됐습니다.",
+          "code": {
+            "language": "c",
+            "snippet": "struct nat_entry {\n    uint32_t client_ip;\n    uint16_t client_port;\n    uint32_t backend_ip;\n    uint16_t backend_port;\n};\n\n// 요청 시 매핑을 저장하고, 응답 시 같은 엔트리로 역방향 변환\nstruct nat_entry *entry =\n    nat_table_lookup_or_create(client_ip, client_port, backend_ip, backend_port);"
+          }
+        }
       ],
       "result": "커널 추상화 아래의 TCP/IP 동작을 코드 수준에서 검증하며 네트워크 시스템 이해도를 높였습니다."
     },
@@ -331,14 +382,30 @@
         "출시 전 오류 수정과 v2.0.0 배포"
       ],
       "trouble": [
-        [
-          "채팅방 사용자 식별 오류",
-          "채팅 작성자와 방 참여자를 같은 ID로 비교하면서 방장 표시와 입퇴장 메시지가 어긋났습니다. Firebase UID와 서버 사용자 ID를 분리하고 채팅 데이터에 두 값을 함께 저장해 표시 기준을 바로잡았습니다."
-        ],
-        [
-          "KTX 동승방 참여 오류",
-          "KTX 조회 응답을 다른 형식의 파서로 변환하면서 참여자 데이터가 잘못 매핑됐습니다. 조회 응답 전용 변환 함수로 교체해 동승방 참여와 채팅방 생성을 정상화했습니다."
-        ]
+        {
+          "title": "채팅방 사용자 식별 오류",
+          "situation": "채팅 작성자와 방 참여자를 같은 ID로 비교하면서 방장 표시와 입퇴장 메시지가 어긋났습니다.",
+          "action": [
+            "Firebase UID와 서버 사용자 ID를 분리하고 채팅 데이터에 두 값을 함께 저장하도록 수정"
+          ],
+          "result": "방장 표시와 입퇴장 메시지 표시 기준이 정상화됐습니다.",
+          "code": {
+            "language": "dart",
+            "snippet": "class ChatMessage {\n  final String firebaseUid; // Firebase Auth UID\n  final int serverUserId;   // 서버 사용자 ID (방장 판별 기준)\n\n  bool isHostOf(Room room) => serverUserId == room.hostServerUserId;\n}"
+          }
+        },
+        {
+          "title": "KTX 동승방 참여 오류",
+          "situation": "KTX 조회 응답을 택시 응답과 같은 파서로 변환하면서 참여자 데이터가 잘못 매핑됐습니다.",
+          "action": [
+            "조회 응답 전용 변환 함수로 교체"
+          ],
+          "result": "동승방 참여와 채팅방 생성이 정상화됐습니다.",
+          "code": {
+            "language": "dart",
+            "snippet": "// 기존: 택시 응답 파서를 재사용해 KTX 응답의 참여자 필드가 잘못 매핑됨\nRoomModel parseKtxRoom(Map<String, dynamic> json) {\n  return RoomModel(\n    participants: (json['members'] as List) // 실제 KTX 응답 키 기준으로 파싱\n        .map((m) => Participant.fromKtxJson(m))\n        .toList(),\n  );\n}"
+          }
+        }
       ],
       "result": "44개의 이슈를 등록하고 70개의 PR을 병합했습니다. 장소 검색부터 동승방과 채팅 및 알림까지 주요 기능을 개발하고 v2.0.0 릴리스를 완료했습니다."
     },
@@ -400,14 +467,22 @@
         "공연 예매 서비스의 관리자/사용자 흐름 정리"
       ],
       "trouble": [
-        [
-          "좌석 동시성",
-          "좌석은 AVAILABLE, PROGRESS, COMPLETED 상태로 분리하고 진행 중 좌석에는 만료 시간을 둬 결제 중 이탈된 좌석을 다시 사용할 수 있도록 설계했습니다."
-        ],
-        [
-          "상태 유지",
-          "새로고침 시 사용자와 공연 정보가 사라지지 않도록 redux-persist와 session storage를 사용해 필요한 상태를 유지했습니다."
-        ]
+        {
+          "title": "좌석 동시성",
+          "situation": "결제 중 이탈된 좌석이 다른 사용자에게 다시 열리지 않아 좌석이 묶여버리는 문제가 있었습니다.",
+          "action": [
+            "좌석을 AVAILABLE, PROGRESS, COMPLETED 상태로 분리하고 진행 중 좌석에 만료 시간을 두는 구조를 분석해 정리"
+          ],
+          "result": "결제 중 이탈된 좌석이 만료 후 다시 열리는 처리 흐름을 파악했습니다."
+        },
+        {
+          "title": "상태 유지",
+          "situation": "새로고침 시 사용자와 공연 정보가 사라지는 문제가 있었습니다.",
+          "action": [
+            "redux-persist와 session storage로 필요한 상태를 유지하는 구조를 분석해 정리"
+          ],
+          "result": "새로고침 이후에도 상태가 유지되는 처리 흐름을 파악했습니다."
+        }
       ],
       "result": "React와 Firebase를 활용한 실시간 예매 도메인의 상태 관리와 데이터 모델링 경험을 보여주는 프로젝트입니다."
     }

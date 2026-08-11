@@ -18,7 +18,6 @@ export default function ProjectModal({ project, onClose }) {
         <div className="modal-header">
           <div>
             <h3>{project.title}</h3>
-            <p>{project.summary}</p>
             <div className="contribution-detail" aria-label={`프로젝트 기여도 ${project.contribution}%`}>
               <span>기여도</span>
               <strong>{project.contribution}%</strong>
@@ -44,32 +43,51 @@ export default function ProjectModal({ project, onClose }) {
           <button className="modal-close" type="button" onClick={onClose} aria-label="닫기">×</button>
         </div>
         <div className="modal-body">
-          <div className="detail-grid">
-            <div className="detail-block architecture-block">
-              <h4>아키텍처 구조</h4>
-              <div className="arch-diagram">
-                <div className="arch-flow">
-                  {project.architecture.map(([name, desc], index) => (
-                    <div className={`arch-node ${['', 'teal', 'green', 'amber', 'rose'][index % 5]}`} key={name}>
-                      <strong>{name}</strong><span>{desc}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="arch-support">
-                  {project.support.map(([name, desc]) => <div key={name}><strong>{name}</strong>{desc}</div>)}
-                </div>
+          <div className="detail-block">
+            <h4>프로젝트 개요</h4>
+            <p>{project.summary}</p>
+            <p>{project.result}</p>
+          </div>
+          <div className="detail-block">
+            <h4>아키텍처</h4>
+            <div className="arch-diagram">
+              <div className="arch-flow">
+                {project.architecture.map(([name, desc], index) => (
+                  <div className={`arch-node ${['', 'teal', 'green', 'amber', 'rose'][index % 5]}`} key={name}>
+                    <strong>{name}</strong><span>{desc}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="arch-support">
+                {project.support.map(([name, desc]) => <div key={name}><strong>{name}</strong>{desc}</div>)}
               </div>
             </div>
-            <div className="detail-block">
-              <h4>역할과 주요 기능</h4>
-              <ul>{project.roles.map((role) => <li key={role}>{role}</li>)}</ul>
-            </div>
-            <div className="detail-block">
-              <h4>트러블슈팅 / 성능 개선</h4>
-              {project.trouble.map(([title, body]) => <p key={title}><strong>{title}</strong><br />{body}</p>)}
+          </div>
+          <div className="detail-block">
+            <h4>내가 기여한 역할</h4>
+            <ul>{project.roles.map((role) => <li key={role}>{role}</li>)}</ul>
+          </div>
+          <div className="detail-block">
+            <h4>트러블슈팅</h4>
+            <div className="trouble-list">
+              {project.trouble.map((item) => (
+                <div className="trouble-item" key={item.title}>
+                  <strong>{item.title}</strong>
+                  <p className="trouble-row"><span className="trouble-label">상황</span>{item.situation}</p>
+                  <div className="trouble-row trouble-actions-row">
+                    <span className="trouble-label">조치</span>
+                    <ol className="trouble-actions">
+                      {item.action.map((step) => <li key={step}>{step}</li>)}
+                    </ol>
+                  </div>
+                  <p className="trouble-row trouble-result"><span className="trouble-label">결과</span>{item.result}</p>
+                  {item.code && (
+                    <pre className="code-block"><code>{item.code.snippet}</code></pre>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-          <div className="detail-block"><h4>정리</h4><p>{project.result}</p></div>
         </div>
       </div>
     </div>

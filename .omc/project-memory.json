@@ -1,0 +1,207 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1786407904132,
+  "projectRoot": "C:\\Users\\SSAFY\\code\\portfolio",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "react",
+        "version": "19.0.0",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.0.0",
+        "category": "frontend"
+      },
+      {
+        "name": "vite",
+        "version": "7.0.0",
+        "category": "build"
+      }
+    ],
+    "packageManager": "npm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "node -e \"JSON.parse(require('fs').readFileSync('C:/Users/SSAFY/code/portfolio/src/data/portfolio.json','utf8')); console.log('valid json')\" && cd \"C:\\Users\\SSAFY\\code\\portfolio\" && npm run build 2>&1 | tail -20",
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": "type-based"
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "src"
+    ],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "cra-web-frontend": {
+      "path": "cra-web-frontend",
+      "purpose": null,
+      "fileCount": 14,
+      "lastAccessed": 1786407904074,
+      "keyFiles": [
+        "eslint.config.js",
+        "firebase.json",
+        "index.html",
+        "package-lock.json",
+        "package.json"
+      ]
+    },
+    "dist": {
+      "path": "dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 1,
+      "lastAccessed": 1786407904075,
+      "keyFiles": [
+        "index.html"
+      ]
+    },
+    "projects": {
+      "path": "projects",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1786407904087,
+      "keyFiles": []
+    },
+    "pupil-dilation": {
+      "path": "pupil-dilation",
+      "purpose": null,
+      "fileCount": 9,
+      "lastAccessed": 1786407904089,
+      "keyFiles": [
+        "df",
+        "firebase.json",
+        "package-lock.json",
+        "package.json",
+        "README.md"
+      ]
+    },
+    "src": {
+      "path": "src",
+      "purpose": "Source code",
+      "fileCount": 3,
+      "lastAccessed": 1786407904090,
+      "keyFiles": [
+        "App.css",
+        "App.jsx",
+        "main.jsx"
+      ]
+    },
+    "dist\\assets": {
+      "path": "dist\\assets",
+      "purpose": "Static assets",
+      "fileCount": 2,
+      "lastAccessed": 1786407904091,
+      "keyFiles": [
+        "index-DG0haaiB.css",
+        "index-SybxTl-g.js"
+      ]
+    },
+    "src\\components": {
+      "path": "src\\components",
+      "purpose": "UI components",
+      "fileCount": 7,
+      "lastAccessed": 1786407904093,
+      "keyFiles": [
+        "Icons.jsx",
+        "PageLayout.jsx",
+        "PortfolioSections.jsx"
+      ]
+    },
+    "src\\data": {
+      "path": "src\\data",
+      "purpose": "Data files",
+      "fileCount": 1,
+      "lastAccessed": 1786407904094,
+      "keyFiles": [
+        "portfolio.json"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "src/data/portfolio.json",
+      "accessCount": 19,
+      "lastAccessed": 1786426265562,
+      "type": "file"
+    },
+    {
+      "path": "src/App.css",
+      "accessCount": 12,
+      "lastAccessed": 1786409987432,
+      "type": "directory"
+    },
+    {
+      "path": "src/components/ProjectModal.jsx",
+      "accessCount": 4,
+      "lastAccessed": 1786409944793,
+      "type": "file"
+    },
+    {
+      "path": "src/components/PrintProjects.jsx",
+      "accessCount": 4,
+      "lastAccessed": 1786409954994,
+      "type": "file"
+    },
+    {
+      "path": ".claude/launch.json",
+      "accessCount": 3,
+      "lastAccessed": 1786408543028,
+      "type": "file"
+    },
+    {
+      "path": "src/components/ProjectCard.jsx",
+      "accessCount": 2,
+      "lastAccessed": 1786408574956,
+      "type": "directory"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1786408071321,
+      "type": "file"
+    },
+    {
+      "path": "src",
+      "accessCount": 1,
+      "lastAccessed": 1786408309945,
+      "type": "directory"
+    },
+    {
+      "path": "vite.config.js",
+      "accessCount": 1,
+      "lastAccessed": 1786408461083,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
