@@ -268,6 +268,52 @@ li + li { margin-top: 8px; }
   font-size: 18px;
 }
 
+.timeline-groups {
+  display: grid;
+  gap: 16px;
+}
+
+.timeline-group {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.timeline-group:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.timeline-year {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.timeline-items {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline-items li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.timeline-items strong { font-size: 15px; }
+
+.timeline-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
 .grid {
   display: grid;
   gap: 16px;
@@ -1043,13 +1089,13 @@ footer {
   main section { padding: 7mm 0; scroll-margin-top: 0; }
   .compact-section { padding: 7mm 0; }
   .section-head { grid-template-columns: 34mm 1fr; gap: 6mm; }
-  #about .section-head { display: block; }
-  #about h2 { margin-bottom: 3mm; }
+  #about .section-head, #history .section-head { display: block; }
+  #about h2, #history h2 { margin-bottom: 3mm; }
   h2 { position: static; font-size: 16pt; break-after: avoid; }
   h3 { font-size: 11pt; }
   p { margin-bottom: 2.5mm; }
   .lead { font-size: 10.5pt; }
-  .card, .case-row, .skill-row { box-shadow: none; break-inside: avoid; }
+  .card, .case-row, .skill-row, .timeline-group { box-shadow: none; break-inside: avoid; }
   .grid { gap: 3mm; }
   .grid.three { grid-template-columns: repeat(3, 1fr); }
   .grid.two { grid-template-columns: repeat(2, 1fr); }
@@ -1057,6 +1103,12 @@ footer {
   .compact-card p { font-size: 8.5pt; }
   .case-study, .skill-table { gap: 2.5mm; }
   .case-row, .skill-row { grid-template-columns: 31mm 1fr; padding: 3mm; }
+  .timeline-groups { gap: 3mm; }
+  .timeline-group { grid-template-columns: 14mm 1fr; gap: 4mm; padding-top: 3mm; }
+  .timeline-year { font-size: 10pt; }
+  .timeline-items { gap: 1.5mm; }
+  .timeline-items strong { font-size: 8.5pt; }
+  .timeline-desc { font-size: 7.5pt; }
 
   .print-projects {
     display: block;

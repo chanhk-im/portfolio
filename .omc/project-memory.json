@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1786407904132,
+  "lastScanned": 1786581542862,
   "projectRoot": "C:\\Users\\SSAFY\\code\\portfolio",
   "techStack": {
     "languages": [
@@ -34,7 +34,7 @@
     "runtime": null
   },
   "build": {
-    "buildCommand": "cd \"C:\\Users\\SSAFY\\code\\portfolio\" && npm run build 2>&1 | tail -15",
+    "buildCommand": "npm run build",
     "testCommand": null,
     "lintCommand": null,
     "devCommand": "npm run dev",
@@ -67,7 +67,7 @@
       "path": "cra-web-frontend",
       "purpose": null,
       "fileCount": 14,
-      "lastAccessed": 1786407904074,
+      "lastAccessed": 1786581542827,
       "keyFiles": [
         "eslint.config.js",
         "firebase.json",
@@ -80,7 +80,7 @@
       "path": "dist",
       "purpose": "Distribution/build output",
       "fileCount": 1,
-      "lastAccessed": 1786407904075,
+      "lastAccessed": 1786581542836,
       "keyFiles": [
         "index.html"
       ]
@@ -89,14 +89,14 @@
       "path": "projects",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1786407904087,
+      "lastAccessed": 1786581542836,
       "keyFiles": []
     },
     "pupil-dilation": {
       "path": "pupil-dilation",
       "purpose": null,
       "fileCount": 9,
-      "lastAccessed": 1786407904089,
+      "lastAccessed": 1786581542837,
       "keyFiles": [
         "df",
         "firebase.json",
@@ -109,7 +109,7 @@
       "path": "src",
       "purpose": "Source code",
       "fileCount": 3,
-      "lastAccessed": 1786407904090,
+      "lastAccessed": 1786581542838,
       "keyFiles": [
         "App.css",
         "App.jsx",
@@ -120,17 +120,17 @@
       "path": "dist\\assets",
       "purpose": "Static assets",
       "fileCount": 2,
-      "lastAccessed": 1786407904091,
+      "lastAccessed": 1786581542839,
       "keyFiles": [
-        "index-DG0haaiB.css",
-        "index-SybxTl-g.js"
+        "index-PM2kcr-r.css",
+        "index-v4j52pS1.js"
       ]
     },
     "src\\components": {
       "path": "src\\components",
       "purpose": "UI components",
       "fileCount": 7,
-      "lastAccessed": 1786407904093,
+      "lastAccessed": 1786581542840,
       "keyFiles": [
         "Icons.jsx",
         "PageLayout.jsx",
@@ -141,7 +141,7 @@
       "path": "src\\data",
       "purpose": "Data files",
       "fileCount": 1,
-      "lastAccessed": 1786407904094,
+      "lastAccessed": 1786581542840,
       "keyFiles": [
         "portfolio.json"
       ]
@@ -149,82 +149,40 @@
   },
   "hotPaths": [
     {
-      "path": "src/App.css",
-      "accessCount": 101,
-      "lastAccessed": 1786432672270,
-      "type": "directory"
-    },
-    {
       "path": "src/data/portfolio.json",
-      "accessCount": 48,
-      "lastAccessed": 1786431567550,
+      "accessCount": 39,
+      "lastAccessed": 1786587507168,
       "type": "file"
     },
     {
-      "path": "src/components/ProjectCard.jsx",
-      "accessCount": 10,
-      "lastAccessed": 1786431043478,
-      "type": "directory"
-    },
-    {
-      "path": "src/components/ProjectModal.jsx",
-      "accessCount": 6,
-      "lastAccessed": 1786427350552,
-      "type": "file"
-    },
-    {
-      "path": "src/components/PrintProjects.jsx",
-      "accessCount": 6,
-      "lastAccessed": 1786427357998,
-      "type": "file"
-    },
-    {
-      "path": "src/components/PageLayout.jsx",
-      "accessCount": 6,
-      "lastAccessed": 1786432289901,
-      "type": "file"
-    },
-    {
-      "path": "src",
-      "accessCount": 5,
-      "lastAccessed": 1786431524217,
-      "type": "directory"
-    },
-    {
-      "path": ".claude/launch.json",
-      "accessCount": 3,
-      "lastAccessed": 1786408543028,
+      "path": "src/App.css",
+      "accessCount": 30,
+      "lastAccessed": 1786586994181,
       "type": "file"
     },
     {
       "path": "src/components/PortfolioSections.jsx",
-      "accessCount": 2,
-      "lastAccessed": 1786430945621,
-      "type": "directory"
-    },
-    {
-      "path": "package.json",
-      "accessCount": 1,
-      "lastAccessed": 1786408071321,
+      "accessCount": 13,
+      "lastAccessed": 1786586983189,
       "type": "file"
     },
     {
-      "path": "vite.config.js",
+      "path": "src/components/PrintProjects.jsx",
       "accessCount": 1,
-      "lastAccessed": 1786408461083,
+      "lastAccessed": 1786583232659,
       "type": "file"
     },
     {
       "path": "src/App.jsx",
       "accessCount": 1,
-      "lastAccessed": 1786431508655,
+      "lastAccessed": 1786583240384,
       "type": "file"
     },
     {
-      "path": "index.html",
+      "path": "src",
       "accessCount": 1,
-      "lastAccessed": 1786432843820,
-      "type": "file"
+      "lastAccessed": 1786586987174,
+      "type": "directory"
     }
   ],
   "userDirectives": []
