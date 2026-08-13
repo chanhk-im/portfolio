@@ -1,10 +1,10 @@
 export default function PrintProjects({ projects }) {
   return (
-    <section className="print-projects" aria-label="프로젝트 상세">
+    <section className="print-projects" id="project-detail" aria-label="프로젝트 상세">
       <div className="page">
         <h2>프로젝트 상세</h2>
         {projects.map((project) => (
-          <article className="print-project" key={project.id}>
+          <article className="print-project" id={`project-${project.id}`} key={project.id}>
             <header className="print-project-header">
               <div>
                 <h3>{project.title}</h3>

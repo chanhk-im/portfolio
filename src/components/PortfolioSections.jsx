@@ -1,6 +1,6 @@
 import ProjectCard from './ProjectCard';
 
-export default function PortfolioSections({ data, onOpenProject }) {
+export default function PortfolioSections({ data, onOpenProject, children }) {
   const { about, history, strengths, projects, caseStudies, skills, awards, education } = data;
   return (
     <main>
@@ -43,18 +43,21 @@ export default function PortfolioSections({ data, onOpenProject }) {
         <h2>기술 스택</h2>
         <div className="skill-table">{skills.map(([name, value]) => <div className="skill-row" key={name}><strong>{name}</strong><span>{value}</span></div>)}</div>
       </div></section>
+      {children}
       {awards && awards.length > 0 && (
         <section id="awards"><div className="page section-head">
           <h2>수상</h2>
-          <div className="card"><ul>{awards.map((item) => <li key={item}>{item}</li>)}</ul></div>
+          <ul className="awards-list">{awards.map((item) => <li key={item}>{item}</li>)}</ul>
         </div></section>
       )}
       <section id="education"><div className="page section-head">
         <h2>교육</h2>
-        <div className="grid two">{education.map((entry) => (
-          <div className="card" key={entry.id}>
-            <h3>{entry.title}</h3>
-            <p>{entry.period}</p>
+        <div className="education-list">{education.map((entry) => (
+          <div className="education-row" key={entry.id}>
+            <div className="education-row-head">
+              <h3>{entry.title}</h3>
+              <p>{entry.period}</p>
+            </div>
             {entry.items && entry.items.length > 0 && <ul>{entry.items.map((item) => <li key={item}>{item}</li>)}</ul>}
           </div>
         ))}</div>

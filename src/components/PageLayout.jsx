@@ -31,6 +31,38 @@ export function Hero({ profile }) {
   );
 }
 
+export function PrintToc({ items }) {
+  return (
+    <section className="print-toc" aria-hidden="true">
+      <div className="page">
+        <h2>목차</h2>
+        <ol className="print-toc-list">
+          {items.map((item) => (
+            <li key={item.href}>
+              <a href={item.href}>
+                <span className="print-toc-label">{item.label}</span>
+                <span className="print-toc-leader" />
+              </a>
+              {item.sub && item.sub.length > 0 && (
+                <ol className="print-toc-sub">
+                  {item.sub.map((sub) => (
+                    <li key={sub.href}>
+                      <a href={sub.href}>
+                        <span className="print-toc-label">{sub.label}</span>
+                        <span className="print-toc-leader" />
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
 export function Footer({ handle }) {
   return <footer><div className="page"><p>{handle}</p></div></footer>;
 }

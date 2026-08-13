@@ -149,40 +149,52 @@
   },
   "hotPaths": [
     {
-      "path": "src/data/portfolio.json",
-      "accessCount": 39,
-      "lastAccessed": 1786587507168,
+      "path": "src/App.css",
+      "accessCount": 93,
+      "lastAccessed": 1786606806385,
       "type": "file"
     },
     {
-      "path": "src/App.css",
-      "accessCount": 30,
-      "lastAccessed": 1786586994181,
+      "path": "src/data/portfolio.json",
+      "accessCount": 46,
+      "lastAccessed": 1786606487326,
       "type": "file"
     },
     {
       "path": "src/components/PortfolioSections.jsx",
-      "accessCount": 13,
-      "lastAccessed": 1786586983189,
+      "accessCount": 20,
+      "lastAccessed": 1786606600720,
       "type": "file"
     },
     {
-      "path": "src/components/PrintProjects.jsx",
-      "accessCount": 1,
-      "lastAccessed": 1786583232659,
+      "path": "src/components/PageLayout.jsx",
+      "accessCount": 8,
+      "lastAccessed": 1786602955390,
       "type": "file"
     },
     {
       "path": "src/App.jsx",
-      "accessCount": 1,
-      "lastAccessed": 1786583240384,
+      "accessCount": 7,
+      "lastAccessed": 1786606348830,
       "type": "file"
     },
     {
       "path": "src",
-      "accessCount": 1,
-      "lastAccessed": 1786586987174,
+      "accessCount": 5,
+      "lastAccessed": 1786606324171,
       "type": "directory"
+    },
+    {
+      "path": "src/components/PrintProjects.jsx",
+      "accessCount": 3,
+      "lastAccessed": 1786602230642,
+      "type": "file"
+    },
+    {
+      "path": "src/components/ProjectModal.jsx",
+      "accessCount": 1,
+      "lastAccessed": 1786597527644,
+      "type": "file"
     }
   ],
   "userDirectives": []
