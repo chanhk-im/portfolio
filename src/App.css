@@ -248,6 +248,13 @@ li + li { margin-top: 8px; }
   font-size: 18px;
 }
 
+.about-title {
+  margin-bottom: 20px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
 .timeline-groups {
   display: grid;
   gap: 16px;
@@ -442,17 +449,6 @@ li { color: var(--text); }
   align-items: flex-start;
 }
 
-.contribution-badge {
-  flex: 0 0 auto;
-  padding: 5px 8px;
-  border-radius: 999px;
-  background: var(--green-tint);
-  color: var(--green);
-  font-size: 11px;
-  font-weight: 800;
-  line-height: 1;
-}
-
 .project-period {
   margin: 4px 0 0;
   color: var(--muted);
@@ -571,10 +567,14 @@ li { color: var(--text); }
 .skill-row strong { color: var(--blue); }
 
 .case-row p,
-.skill-row span {
+.skill-description {
   margin: 0;
   color: var(--text);
 }
+
+.skill-rating-guide { color: var(--muted); font-size: 14px; }
+.skill-rating { color: var(--blue); font-size: 20px; letter-spacing: 2px; }
+.skill-description { margin-top: 4px; font-size: 14px; }
 
 .awards-list {
   margin: 0;
@@ -659,38 +659,6 @@ li { color: var(--text); }
   overflow-wrap: anywhere;
 }
 
-.contribution-detail {
-  display: grid;
-  grid-template-columns: auto auto minmax(100px, 180px);
-  gap: 8px;
-  align-items: center;
-  width: fit-content;
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.contribution-detail strong {
-  color: var(--green);
-  font-size: 14px;
-}
-
-.contribution-track {
-  width: 160px;
-  height: 7px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: var(--track-bg);
-}
-
-.contribution-track span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--green);
-}
-
 .project-links {
   display: flex;
   flex-wrap: wrap;
@@ -759,6 +727,13 @@ li { color: var(--text); }
 
 .detail-block p { color: var(--text); }
 
+.project-roles { display: grid; gap: 14px; }
+.project-role { min-width: 0; overflow-wrap: anywhere; }
+.project-role + .project-role { padding-top: 14px; border-top: 1px solid var(--line); }
+.project-role h5 { margin: 0 0 6px; color: var(--teal); font-size: 14px; }
+.project-role-purpose { margin: 0 0 8px; }
+.project-role ul { margin: 0; padding-left: 20px; }
+
 .trouble-list {
   display: grid;
   gap: 16px;
@@ -772,7 +747,7 @@ li { color: var(--text); }
   min-width: 0;
 }
 
-.trouble-item strong {
+.trouble-item > strong {
   display: block;
   margin-bottom: 8px;
   color: var(--rose);
@@ -1038,6 +1013,9 @@ footer {
   h3 { font-size: 11pt; }
   p { margin-bottom: 2.5mm; }
   .lead { font-size: 10.5pt; }
+  .about-title { margin-bottom: 3mm; font-size: 16pt; break-after: avoid; }
+  .skill-rating-guide, .skill-description { font-size: 8.5pt; }
+  .skill-rating { font-size: 12pt; }
   .card, .skill-row, .timeline-group, .education-row, .case-row { box-shadow: none; break-inside: avoid; }
   .grid { gap: 3mm; }
   .grid.three { grid-template-columns: repeat(3, 1fr); }
@@ -1093,7 +1071,6 @@ footer {
 
   .print-project-header h3 { margin-bottom: 1mm; font-size: 16pt; }
   .print-project-period { margin: 0 0 2mm; color: var(--muted); font-size: 8pt; font-weight: 600; }
-  .print-project-header > strong { flex: 0 0 auto; color: var(--green); font-size: 10pt; }
   .print-tags { display: flex; flex-wrap: wrap; gap: 1.5mm; margin: 3mm 0; }
   .print-tags span { padding: 1mm 2mm; border-radius: 3px; background: var(--blue-tint); color: var(--blue-dark); font-size: 7.5pt; font-weight: 700; }
   .print-detail-grid { display: block; }
@@ -1104,6 +1081,11 @@ footer {
   .print-detail p:last-child { margin-bottom: 0; }
   .print-detail ul { margin-top: 0; padding-left: 5mm; }
   .print-detail li + li { margin-top: 1.5mm; }
+  .print-detail .project-roles { gap: 2mm; }
+  .print-detail .project-role { break-inside: avoid; }
+  .print-detail .project-role + .project-role { padding-top: 2mm; }
+  .print-detail .project-role h5 { margin-bottom: 1mm; font-size: 9pt; }
+  .print-detail .project-role-purpose { margin-bottom: 1mm; }
   .print-overview, .print-architecture, .print-trouble { grid-column: 1 / -1; }
   .print-arch-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2mm; }
   .print-arch-flow div { padding: 2.5mm; border: 1px solid var(--line-soft); border-radius: 3px; }
@@ -1114,7 +1096,7 @@ footer {
   .print-support p { margin: 0; padding: 2mm; background: var(--surface-tint-2); font-size: 8pt; }
   .print-trouble-item { break-inside: avoid; }
   .print-trouble-item + .print-trouble-item { margin-top: 3mm; padding-top: 3mm; border-top: 1px solid var(--line); }
-  .print-trouble-item strong { display: block; margin-bottom: 1mm; color: var(--rose); font-size: 9.5pt; }
+  .print-trouble-item > strong { display: block; margin-bottom: 1mm; color: var(--rose); font-size: 9.5pt; }
   .print-trouble-item p, .print-trouble-actions { margin: 0 0 1.5mm; }
   .print-trouble-item p:last-child, .print-trouble-actions:last-child { margin-bottom: 0; }
   .print-trouble-label { display: inline-block; min-width: 9mm; margin-right: 1.5mm; color: var(--blue); font-size: 7.5pt; font-weight: 700; }

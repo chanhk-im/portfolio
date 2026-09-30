@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import ProjectRoles from './ProjectRoles';
+import EmphasizedText from './EmphasizedText';
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -19,13 +21,6 @@ export default function ProjectModal({ project, onClose }) {
           <div>
             <h3>{project.title}</h3>
             {project.period && <p className="project-period">{project.period}</p>}
-            <div className="contribution-detail" aria-label={`프로젝트 기여도 ${project.contribution}%`}>
-              <span>기여도</span>
-              <strong>{project.contribution}%</strong>
-              <div className="contribution-track" aria-hidden="true">
-                <span style={{ width: `${project.contribution}%` }} />
-              </div>
-            </div>
             {(project.links?.github || project.links?.web) && (
               <div className="project-links" aria-label="프로젝트 링크">
                 {project.links.github && (
@@ -65,8 +60,8 @@ export default function ProjectModal({ project, onClose }) {
             </div>
           </div>
           <div className="detail-block">
-            <h4>내가 기여한 역할</h4>
-            <ul>{project.roles.map((role) => <li key={role}>{role}</li>)}</ul>
+            <h4>내 역할</h4>
+            <ProjectRoles roles={project.roles} />
           </div>
           <div className="detail-block">
             <h4>트러블슈팅</h4>
@@ -74,20 +69,24 @@ export default function ProjectModal({ project, onClose }) {
               {project.trouble.map((item) => (
                 <div className="trouble-item" key={item.title}>
                   <strong>{item.title}</strong>
-                  <p className="trouble-row"><span className="trouble-label">상황</span>{item.situation}</p>
+                  <p className="trouble-row"><span className="trouble-label">문제</span><span><EmphasizedText text={item.situation} /></span></p>
                   <div className="trouble-row trouble-actions-row">
-                    <span className="trouble-label">조치</span>
+                    <span className="trouble-label">해결</span>
                     <ol className="trouble-actions">
-                      {item.action.map((step) => <li key={step}>{step}</li>)}
+                      {item.action.map((step) => <li key={step}><EmphasizedText text={step} /></li>)}
                     </ol>
                   </div>
-                  <p className="trouble-row trouble-result"><span className="trouble-label">결과</span>{item.result}</p>
+                  <p className="trouble-row trouble-result"><span className="trouble-label">결과</span><span><EmphasizedText text={item.result} /></span></p>
                   {item.code && (
                     <pre className="code-block"><code>{item.code.snippet}</code></pre>
                   )}
                 </div>
               ))}
             </div>
+          </div>
+          <div className="detail-block">
+            <h4>회고</h4>
+            <ul>{project.retrospective.map((item) => <li key={item}>{item}</li>)}</ul>
           </div>
         </div>
       </div>

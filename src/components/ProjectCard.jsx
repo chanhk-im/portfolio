@@ -4,7 +4,6 @@ export default function ProjectCard({ project, onOpen }) {
       <div className="project-title">
         <div className="project-heading">
           <h3>{project.title}</h3>
-          <span className="contribution-badge">기여도 {project.contribution}%</span>
         </div>
         {project.period && <p className="project-period">{project.period}</p>}
         <p className="project-summary">{project.summary}</p>

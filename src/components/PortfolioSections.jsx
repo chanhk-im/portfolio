@@ -5,6 +5,7 @@ export default function PortfolioSections({ data, onOpenProject, children }) {
   return (
     <main>
       <section id="about"><div className="page section-head"><h2>About</h2><div>
+        <h3 className="about-title">{data.aboutTitle}</h3>
         {about.map((paragraph) => <p className="lead" key={paragraph}>{paragraph}</p>)}
       </div></div></section>
       {history && history.length > 0 && (
@@ -41,7 +42,20 @@ export default function PortfolioSections({ data, onOpenProject, children }) {
       </div></section>
       <section id="skills"><div className="page section-head">
         <h2>기술 스택</h2>
-        <div className="skill-table">{skills.map(([name, value]) => <div className="skill-row" key={name}><strong>{name}</strong><span>{value}</span></div>)}</div>
+        <div>
+          <p className="skill-rating-guide">{data.skillRatingGuide}</p>
+          <div className="skill-table">{skills.map(({ name, rating, description }) => (
+            <div className="skill-row" key={name}>
+              <strong>{name}</strong>
+              <div>
+                <span className="skill-rating" role="img" aria-label={`${name} 숙련도 5점 만점에 ${rating}점`}>
+                  <span aria-hidden="true">{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}</span>
+                </span>
+                <p className="skill-description">{description}</p>
+              </div>
+            </div>
+          ))}</div>
+        </div>
       </div></section>
       {children}
       {awards && awards.length > 0 && (

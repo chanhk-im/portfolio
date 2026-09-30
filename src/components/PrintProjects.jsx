@@ -1,3 +1,6 @@
+import ProjectRoles from './ProjectRoles';
+import EmphasizedText from './EmphasizedText';
+
 export default function PrintProjects({ projects }) {
   return (
     <section className="print-projects" id="project-detail" aria-label="프로젝트 상세">
@@ -10,7 +13,6 @@ export default function PrintProjects({ projects }) {
                 <h3>{project.title}</h3>
                 {project.period && <p className="print-project-period">{project.period}</p>}
               </div>
-              <strong>기여도 {project.contribution}%</strong>
             </header>
             <div className="print-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             <div className="print-detail-grid">
@@ -31,23 +33,27 @@ export default function PrintProjects({ projects }) {
                 </div>
               </div>
               <div className="print-detail">
-                <h4>내가 기여한 역할</h4>
-                <ul>{project.roles.map((role) => <li key={role}>{role}</li>)}</ul>
+                <h4>내 역할</h4>
+                <ProjectRoles roles={project.roles} />
               </div>
               <div className="print-detail print-trouble">
                 <h4>트러블슈팅</h4>
                 {project.trouble.map((item) => (
                   <div className="print-trouble-item" key={item.title}>
                     <strong>{item.title}</strong>
-                    <p><span className="print-trouble-label">상황</span>{item.situation}</p>
+                    <p><span className="print-trouble-label">문제</span><EmphasizedText text={item.situation} /></p>
                     <div className="print-trouble-actions">
-                      <span className="print-trouble-label">조치</span>
-                      <ol>{item.action.map((step) => <li key={step}>{step}</li>)}</ol>
+                      <span className="print-trouble-label">해결</span>
+                      <ol>{item.action.map((step) => <li key={step}><EmphasizedText text={step} /></li>)}</ol>
                     </div>
-                    <p><span className="print-trouble-label">결과</span>{item.result}</p>
+                    <p><span className="print-trouble-label">결과</span><EmphasizedText text={item.result} /></p>
                     {item.code && <pre className="print-code"><code>{item.code.snippet}</code></pre>}
                   </div>
                 ))}
+              </div>
+              <div className="print-detail">
+                <h4>회고</h4>
+                <ul>{project.retrospective.map((item) => <li key={item}>{item}</li>)}</ul>
               </div>
             </div>
           </article>

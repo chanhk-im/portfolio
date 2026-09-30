@@ -45,10 +45,11 @@
       "Education"
     ]
   ],
+  "aboutTitle": "기초부터 탄탄하게 쌓아올리는 개발자",
   "about": [
-    "2019년 C 프로그래밍 컨테스트 수상을 계기로 알고리즘과 시스템 프로그래밍에 흥미를 느끼며 개발을 시작했고, ACM-ICPC와 교내 대회를 거치며 문제를 근본부터 파고드는 습관을 다졌습니다. Raw Socket 기반 TCP 로드밸런서부터 Spring Boot REST API까지 다루며, 커널 아래 네트워크 동작부터 배포 파이프라인까지 스택 전체를 이해하는 백엔드/시스템 개발자로 성장했습니다.",
-    "기능 구현에서 끝내지 않고 성능 병목과 데이터 정합성, 운영 장애까지 근본 원인을 찾아 숫자로 증명하는 방식으로 일합니다. CRAWeb에서는 게시글 목록 조회 쿼리를 28개에서 4개로, Point Cloud 프로젝트에서는 실시간 전송 지연을 600ms에서 130ms로 줄이며 그 성과를 국내 학술 논문 게재와 KCC 2024 장려상으로 이어갔습니다.",
-    "만든 기능은 Docker, GitHub Actions, Prometheus/Grafana로 모니터링과 배포까지 직접 책임지며, CRA 동아리에서 개발팀장과 회장을 맡아 조직을 이끌어본 경험으로 협업과 리더십도 함께 쌓았습니다."
+    "백엔드와 DevOps처럼 보이지 않는 곳에서 서비스를 지탱하는 시스템을 만드는 개발자일수록 기초가 탄탄해야 한다고 생각합니다. 기능이 왜 그렇게 동작하는지 이해하고, 문제가 생겼을 때 원인을 설명할 수 있도록 알고리즘과 네트워크, 데이터베이스의 기본부터 쌓아왔습니다.",
+    "2019년 C 프로그래밍 컨테스트를 시작으로 ACM-ICPC와 교내 대회를 거치며 문제를 나누고 해결하는 연습을 했습니다. Raw Socket 기반 L4 로드밸런서에서는 TCP/IP 헤더와 주소 변환을 직접 구현했고, C/C++ Point Cloud 스트리밍 서버에서는 동시성과 데이터 전송량이 지연에 미치는 영향을 다뤘습니다.",
+    "이렇게 익힌 기초를 Spring 기반 백엔드와 운영 환경에 연결했습니다. 쿼리의 실행 방식과 연관관계를 분석해 조회 비용을 줄이고, 로그와 메트릭으로 장애 원인을 추적했습니다. 앞으로도 사용하는 도구의 동작 원리를 이해하며, 안정적으로 운영할 수 있는 시스템을 만드는 개발자로 성장하고자 합니다."
   ],
   "history": [
     {
@@ -105,7 +106,6 @@
       },
       "title": "방긋",
       "period": "2026.07.06~2026.08.14",
-      "contribution": 72,
       "visual": "banggoot",
       "tags": [
         "Spring Boot",
@@ -113,7 +113,7 @@
         "Docker",
         "Prometheus/Grafana"
       ],
-      "summary": "AR 스캔으로 하자를 기록해 임대차 분쟁을 예방하는 프로젝트입니다.",
+      "summary": "AR 스캔 기반 하자 기록을 통한 임대차 분쟁 예방 프로젝트",
       "architecture": [
         [
           "AR Client",
@@ -151,22 +151,47 @@
         ]
       ],
       "roles": [
-        "Docker와 Jenkins 기반 CI/CD 파이프라인 구축",
-        "Prometheus/Grafana 기반 모니터링 및 로그 수집 환경 구축",
-        "하자 목록 조회 N+1 쿼리 개선 및 회귀 테스트 작성",
-        "프로덕션 장애(500 에러, 컨테이너 메트릭 누락, DNS 실패) 대응",
-        "레거시 vs MSA 벤치마크를 위한 시딩/부하 테스트 환경 구성"
+        {
+          "title": "CI/CD (Docker, Jenkins)",
+          "purpose": "변경 사항의 일관된 반영을 위한 반복 가능한 배포 환경 구축",
+          "items": [
+            "Docker와 Jenkins 기반 CI/CD 파이프라인 구축"
+          ]
+        },
+        {
+          "title": "모니터링 (Prometheus, Grafana)",
+          "purpose": "운영 상태 확인 및 장애 원인 추적",
+          "items": [
+            "Prometheus/Grafana 기반 모니터링 및 로그 수집 환경 구축",
+            "컨테이너 메트릭 누락과 Grafana DNS 조회 실패 대응"
+          ]
+        },
+        {
+          "title": "백엔드 조회 성능과 안정성 개선",
+          "purpose": "하자 조회 비용 절감 및 조회 오류 해소",
+          "items": [
+            "하자 목록과 점검 완료 처리의 N+1 쿼리 개선 및 회귀 테스트 작성",
+            "커서 없는 첫 페이지 조회에서 발생하는 500 에러 수정"
+          ]
+        },
+        {
+          "title": "성능 검증 (벤치마크)",
+          "purpose": "동일한 데이터와 부하 조건에서 레거시와 MSA 구조의 성능 비교",
+          "items": [
+            "벤치마크용 데이터 시딩 및 부하 테스트 환경 구성"
+          ]
+        }
       ],
       "trouble": [
         {
           "title": "하자 목록 조회 N+1 쿼리",
-          "situation": "하자(defect) 목록 조회 API가 하자 1건당 evidence/repair 조회 쿼리를 추가로 날려, 하자 수가 늘어날수록 쿼리 수가 선형으로 증가했습니다.",
+          "situation": "하자마다 evidence와 repair를 개별 조회하는 **N+1 문제** 발생. 하자 수 증가에 따라 조회 쿼리가 선형으로 증가하는 구조",
           "action": [
-            "쿼리 카운트를 assert하는 통합 테스트로 문제를 먼저 재현하고 정량화 (하자 100건 = 201개 쿼리)",
-            "defect ID 목록으로 evidence/repair를 배치 조회한 뒤 Map으로 그룹핑해 메모리에서 매칭하도록 리팩터링",
-            "동일한 방식으로 점검 완료(manifest) 처리 로직의 N+1도 함께 제거"
+            "쿼리 수를 assert하는 통합 테스트로 **하자 100건에서 201개 쿼리** 재현 및 정량화",
+            "하자 ID 목록으로 evidence와 repair를 **배치 조회**한 뒤 Map으로 그룹화해 메모리에서 매칭하도록 변경",
+            "점검 완료(manifest) 처리에도 같은 배치 조회 방식 적용 및 **쿼리 수 검증 통합 테스트** 추가"
           ],
-          "result": "하자 100건 기준 쿼리 수가 201개(1 + 2×N)에서 3개로 고정(약 98.5% 감소)됐고, 완료 처리 쿼리도 하자 수와 무관하게 4개로 고정됐습니다. 회귀 방지를 위해 쿼리 수를 검증하는 통합 테스트를 남겼습니다.",
+          "result": "하자 100건 기준 목록 조회 **201개 → 3개 쿼리(약 98.5% 감소)**. 점검 완료 처리 **4개 쿼리**로 개선 및 회귀 검증 기준 확보",
           "code": {
             "language": "java",
             "snippet": "// 기존: 하자마다 findByDefectId를 개별 호출 -> N+1\nList<Long> defectIds = defects.stream().map(Defect::getId).toList();\n\n// 수정: ID 목록으로 배치 조회 후 메모리에서 매칭\nMap<Long, List<DefectEvidence>> evidenceByDefectId =\n    defectEvidenceRepository.findAllWithFileByDefectIds(defectIds).stream()\n        .collect(Collectors.groupingBy(e -> e.getDefect().getId()));\nMap<Long, Repair> repairByDefectId =\n    repairRepository.findByDefectIdIn(defectIds).stream()\n        .collect(Collectors.toMap(r -> r.getDefect().getId(), Function.identity()));"
@@ -174,13 +199,13 @@
         },
         {
           "title": "커서 없는 첫 페이지 조회 500 에러 (GET /v1/defects)",
-          "situation": "하자 목록을 커서 없이(첫 페이지) 조회하면 매번 could not determine data type of parameter 에러로 500이 발생했습니다.",
+          "situation": "커서 없는 첫 페이지 조회에서 **could not determine data type of parameter** 오류와 500 응답 반복 발생",
           "action": [
-            "운영 EC2의 Loki 로그에서 동일 에러가 반복 발생하는 것을 확인",
-            "JPQL에서 beforeOccurredAt이 IS NULL 단독 조건으로만 쓰이는 자리가 있으면 PostgreSQL이 파라미터 타입을 추론하지 못한다는 것을 파악",
-            "커서 없음, 시간만 있음, 시간+ID 있음 세 가지 케이스를 별도 리포지토리 메서드로 분리해 모든 파라미터가 항상 타입이 있는 비교 안에서만 쓰이도록 수정"
+            "운영 EC2의 **Loki 로그**에서 동일 오류의 반복 발생 확인",
+            "JPQL의 **IS NULL 단독 조건**에 사용된 beforeOccurredAt 파라미터에 대한 PostgreSQL 타입 추론 실패 확인",
+            "**커서 없음, 시간만 있음, 시간과 ID 있음**을 별도 리포지토리 메서드로 분리해 타입이 있는 비교 조건으로 변경 및 세 경우 테스트"
           ],
-          "result": "비로그인 첫 페이지 조회(가장 흔한 케이스)에서 반복되던 500 에러가 해소됐고, 테스트로 세 갈래 케이스를 모두 검증했습니다.",
+          "result": "비로그인 첫 페이지 조회의 **반복 500 오류 해소** 및 커서 조건 세 경우의 정상 동작 검증",
           "code": {
             "language": "java",
             "snippet": "// 기존: beforeOccurredAt이 \"IS NULL\" 단독 조건으로 쓰여 첫 페이지에서 타입 추론 실패\n// and (:beforeOccurredAt is null or ... < :beforeOccurredAt or ...)\n\n// 수정: 커서 유무별로 메서드 분리\nList<Defect> findAllByInspectionIdsAndStatus(...);              // 커서 없음\nList<Defect> findAllByInspectionIdsAndStatusBefore(..., beforeOccurredAt, ...);         // 시간만\nList<Defect> findAllByInspectionIdsAndStatusBeforeOrEqual(..., beforeOccurredAt, beforeDefectId, ...); // 시간+ID"
@@ -188,30 +213,34 @@
         },
         {
           "title": "cAdvisor 컨테이너 메트릭 전체 누락",
-          "situation": "모니터링 대시보드의 컨테이너별 CPU/메모리 패널이 전부 비어 있었습니다.",
+          "situation": "컨테이너별 CPU와 메모리 패널 전체 공백과 **컨테이너 메트릭 누락** 발생",
           "action": [
-            "EC2 호스트에서 직접 cAdvisor 쿼리를 호출해 container 관련 시계열이 0건임을 확인",
-            "Docker 29.x의 containerd-snapshotter 스토리지에서 cAdvisor v0.52.1이 컨테이너의 writable layer 경로를 찾지 못해 등록 자체에 실패하는 업스트림 이슈(google/cadvisor#3860)로 원인 특정",
-            "throwaway 컨테이너로 v0.60.5를 같은 호스트에서 먼저 검증한 뒤 이미지 교체 적용"
+            "EC2 호스트에서 cAdvisor 직접 조회를 통한 **container 시계열 0건** 확인",
+            "Docker 29.x의 containerd-snapshotter에서 cAdvisor v0.52.1의 writable layer 경로 탐색 실패와 컨테이너 등록 실패 확인. **업스트림 이슈 google/cadvisor#3860**와 원인 연결",
+            "같은 호스트의 임시 컨테이너에서 **cAdvisor v0.60.5 선검증** 후 이미지 교체"
           ],
-          "result": "컨테이너별 CPU/메모리 시계열이 정상 수집되어 레거시 vs MSA 벤치마크 대시보드의 패널이 복구됐습니다."
+          "result": "컨테이너별 **CPU와 메모리 시계열 정상 수집** 및 레거시와 MSA 벤치마크 대시보드 복구"
         },
         {
           "title": "Grafana 간헐적 DNS 조회 실패(NXDOMAIN)",
-          "situation": "Grafana가 Docker 임베디드 DNS를 상대로 간헐적으로 NXDOMAIN을 반환하며 접속 실패가 발생했습니다.",
+          "situation": "Docker 임베디드 DNS 조회 중 간헐적 **NXDOMAIN** 응답에 따른 Grafana 접속 실패 발생",
           "action": [
-            "GODEBUG=netdns=cgo 설정을 시도했으나 효과가 없어 원인 재조사",
-            "alpine, ubuntu 두 이미지 태그 모두 CGO_ENABLED=0로 정적 링크되어 cgo 리졸버가 애초에 바이너리에 포함되지 않았음을 실측으로 확인",
-            "이미지 태그 변경 대신 순수 Go 리졸버의 재시도 횟수(dns_opt attempts:5, timeout:2)를 늘리는 방식으로 재설계"
+            "GODEBUG=netdns=cgo 적용 이후에도 오류 지속 확인 및 리졸버 동작 조건 재조사",
+            "alpine과 ubuntu 이미지 모두 **CGO_ENABLED=0 정적 링크**로 cgo 리졸버 미포함 확인",
+            "효과 없는 cgo 전환 설정 제거 및 **dns_opt attempts:5, timeout:2**를 통한 순수 Go 리졸버 재시도 조건 조정"
           ],
-          "result": "근본 원인(정적 링크 바이너리에는 cgo 리졸버가 없음)을 규명해 효과 없는 설정을 제거하고, 실제로 동작하는 재시도 튜닝으로 전환해 DNS 관련 접속 실패를 해소했습니다.",
+          "result": "정적 링크 바이너리의 **cgo 전환 불가 원인 규명** 및 실제 동작하는 재시도 조정으로 DNS 관련 접속 실패 해소",
           "code": {
             "language": "yaml",
             "snippet": "grafana:\n  image: grafana/grafana:13.1.2\n  # GODEBUG=netdns=cgo는 무효(두 이미지 모두 정적 링크, cgo 리졸버 미포함).\n  # 대신 순수 Go 리졸버의 재시도 예산을 늘려 Docker 내장 DNS의 간헐적\n  # NXDOMAIN을 흡수한다.\n  dns_opt:\n    - attempts:5\n    - timeout:2"
           }
         }
       ],
-      "result": "N+1 쿼리 개선과 회귀 테스트로 안정적인 API 성능을 확보했고, 프로덕션 로그 기반 장애 대응과 CI/CD·모니터링 인프라 구축까지 백엔드 운영 전반을 경험했습니다."
+      "result": "N+1 쿼리 개선과 회귀 테스트를 통한 API 조회 비용 절감. 프로덕션 로그 기반 장애 대응과 CI/CD와 모니터링 인프라 구축을 포함한 백엔드 운영 경험 확보",
+      "retrospective": [
+        "쿼리 수 검증 테스트를 통한 성능 회귀 기준의 필요성 체득. 정상 응답과 함께 데이터 증가에 따른 조회 비용 확인 지향",
+        "메트릭 누락과 DNS 오류 추적을 통한 실행 이미지와 바이너리 동작 조건 확인의 중요성 체득. 배포 전 주요 지표의 실제 수집 여부 확인 지향"
+      ]
     },
     {
       "id": "craweb",
@@ -221,14 +250,13 @@
       },
       "title": "CRA 동아리 공식 웹사이트",
       "period": "",
-      "contribution": 75,
       "tags": [
         "Java",
         "Spring Boot",
         "MySQL",
         "Docker"
       ],
-      "summary": "한동대 전산 동아리 CRA의 리크루팅과 커뮤니티 운영을 지원하는 웹 서비스입니다.",
+      "summary": "한동대 전산 동아리 CRA의 리크루팅과 커뮤니티 운영 지원 웹 서비스",
       "architecture": [
         [
           "React SPA",
@@ -266,22 +294,49 @@
         ]
       ],
       "roles": [
-        "게시글과 댓글 및 비품 REST API 구현",
-        "Spring Security와 JWT 기반 인증 및 권한 기능 구현",
-        "S3 이미지와 첨부파일 업로드 기능 구현",
-        "GitHub Actions와 Docker 및 EC2 기반 배포 환경 구성",
-        "Redis 토큰 저장소와 운영 모니터링 환경 구축"
+        {
+          "title": "백엔드 개발 (REST API)",
+          "purpose": "동아리 소통 및 비품 관리 지원",
+          "items": [
+            "게시글, 댓글, 비품 REST API 구현",
+            "S3 기반 이미지 및 첨부파일 업로드 기능 구현"
+          ]
+        },
+        {
+          "title": "인증과 권한 (Spring Security, JWT)",
+          "purpose": "사용자와 관리자 접근 권한 구분 및 토큰 수명 관리",
+          "items": [
+            "Spring Security와 JWT 기반 인증 및 권한 기능 구현",
+            "Redis 기반 토큰 저장소 구축"
+          ]
+        },
+        {
+          "title": "CI/CD (GitHub Actions, Docker)",
+          "purpose": "변경한 기능의 일관된 운영 서비스 반영",
+          "items": [
+            "GitHub Actions와 Docker, EC2 기반 배포 환경 구성"
+          ]
+        },
+        {
+          "title": "모니터링 (Grafana, Loki)",
+          "purpose": "배포 이후 서비스 상태 확인 및 로그 기반 장애 원인 추적",
+          "items": [
+            "Grafana와 Loki 기반 운영 모니터링 환경 구축"
+          ]
+        }
       ],
       "trouble": [
         {
           "title": "게시글 목록 N+1 쿼리",
-          "situation": "게시글 8건을 조회하는데 28개의 쿼리(35.58ms)가 발생했습니다. 작성자를 게시글 수만큼 개별 조회했고, 댓글과 좋아요도 게시글마다 따로 조회됐습니다.",
+          "situation": "페이지네이션을 적용한 게시글 목록에서 작성자, 댓글, 좋아요의 개별 조회로 **N+1 문제** 발생. 게시글 8건 기준 **28개 쿼리, 35.58ms** 측정",
           "action": [
-            "작성자는 Fetch Join으로 목록 쿼리에 합치고, 댓글/좋아요는 BatchSize로 묶어 IN 절 배치 조회로 전환 → 28개(35.58ms) → 14개(16.3ms)",
-            "로그에 작성자 수만큼 좋아요 조회가 반복되는 것을 확인 → User.likes가 기본 EAGER인 것을 찾아 LAZY로 전환 → 14개(16.3ms) → 9개(12.6ms)",
-            "같은 방식으로 로그를 다시 보니 역할(roles) 조회도 작성자 수만큼 반복 → User.roles도 LAZY로 전환 → 9개(12.6ms) → 4개(6.5ms)"
+            "게시글당 하나의 작성자를 참조하는 단일 연관관계에 **Fetch Join 적용**. 게시글 행 수를 늘리지 않고 작성자를 함께 조회하는 방식으로 작성자별 추가 쿼리 제거",
+            "댓글과 좋아요는 일대다 컬렉션으로, Fetch Join과 Pageable 병용 시 **메모리 페이지네이션 위험** 존재. 두 컬렉션을 동시에 조인할 때 댓글 수와 좋아요 수의 곱만큼 행이 늘어나는 문제도 고려할 필요",
+            "위 제약을 피하는 조회 구조로 **게시글의 DB 페이지네이션과 컬렉션 조회 분리**. 댓글과 좋아요에 **@BatchSize(size = 100)**을 적용해 여러 게시글의 컬렉션을 IN 절로 묶어 조회. 작성자 Fetch Join과 함께 적용한 단계에서 28개 쿼리(35.58ms) → 14개(16.3ms) 감소",
+            "SQL 로그에서 작성자별 좋아요 반복 조회 확인 후 **User.likes를 EAGER에서 LAZY로 전환**. 불필요한 즉시 로딩 제거로 14개 쿼리(16.3ms) → 9개(12.6ms) 감소",
+            "작성자별 역할 반복 조회 추가 확인 후 **User.roles도 LAZY로 전환**. 실제 접근 시점에만 조회하도록 변경해 9개 쿼리(12.6ms) → 4개(6.5ms) 감소"
           ],
-          "result": "게시글 수와 무관하게 4개의 고정 쿼리(6.5ms)로 감소. 쿼리 수 1/7, 실행 시간 약 5.5배 개선.",
+          "result": "**게시글 8건 측정 조건**에서 28개 쿼리(35.58ms) → **4개 쿼리(6.5ms)** 개선. 쿼리 수 1/7 및 실행 시간 약 5.5배 개선. 전체 쿼리 수는 페이지 크기와 배치 크기, 로딩 대상에 따라 달라질 수 있어 측정 조건 기준으로 결과 해석",
           "code": {
             "language": "java",
             "snippet": "// 1) 목록 쿼리에서 작성자를 Fetch Join으로 한 번에 조회\n@Query(\"select b from Board b join fetch b.user \" +\n       \"where b.category = :category and b.deleted = false order by b.createdAt asc\")\nList<Board> findAllByCategory(@Param(\"category\") Category category, Pageable pageable);\n\n// 2) 게시글의 댓글/좋아요는 BatchSize로 묶어 IN 절 배치 조회\n@Entity\npublic class Board {\n    @BatchSize(size = 100)\n    @OneToMany(mappedBy = \"board\")\n    private List<Comment> comments;\n\n    @BatchSize(size = 100)\n    @OneToMany(mappedBy = \"board\")\n    private List<Likes> likes;\n}\n\n// 3) User의 roles/likes는 기본 EAGER라 작성자가 조회될 때마다 함께 로딩됨\n//    실제 사용 시점에만 조회되도록 LAZY로 전환\n@Entity\npublic class User {\n    @ElementCollection(fetch = FetchType.LAZY)\n    private Set<Role> roles;\n\n    @OneToMany(mappedBy = \"user\", fetch = FetchType.LAZY)\n    private List<Likes> likes;\n}\n\n// 결과: 게시글 8건 기준 28개 쿼리(35.58ms) -> 4개 쿼리(6.5ms)"
@@ -289,19 +344,23 @@
         },
         {
           "title": "관리자 API 권한 우회",
-          "situation": "authorizeHttpRequests에 계정 관련 POST 요청을 모두 허용하는 규칙(/api/account/**)이 관리자 전용 규칙(/api/account/admin/**, ADMIN 권한)보다 먼저 선언돼 있었습니다. Spring Security는 먼저 매칭되는 규칙을 적용하기 때문에, 관리자 하위 경로 요청도 앞의 permitAll 규칙에 먼저 매칭되면서 ADMIN 권한 검사 없이 관리자 API에 접근할 수 있는 상태였습니다.",
+          "situation": "일반 계정 POST 경로의 **permitAll 규칙이 관리자 전용 규칙보다 먼저 매칭**되어 ADMIN 검사 없이 관리자 API 접근 가능한 상태",
           "action": [
-            "authorizeHttpRequests의 매처는 선언 순서대로 첫 번째로 매칭되는 규칙이 적용된다는 점을 코드 리뷰 중 확인",
-            "더 넓은 경로(/api/account/**)의 permitAll 규칙을 더 좁은 경로(/api/account/admin/**)의 ADMIN 권한 규칙 뒤로 재배치"
+            "코드 리뷰에서 Spring Security 매처의 **선언 순서와 첫 매칭 적용 방식** 확인",
+            "**관리자 전용 ADMIN 규칙**을 더 넓은 일반 계정 경로의 permitAll 규칙보다 앞에 배치"
           ],
-          "result": "관리자 전용 API가 실제로 ADMIN 권한 검사를 통과해야만 접근 가능하도록 수정했습니다. 발견 즉시 super hotfix로 긴급 배포했습니다.",
+          "result": "**ADMIN 검사 이후에만 관리자 API 접근**하도록 수정 및 발견 직후 긴급 배포",
           "code": {
             "language": "java",
             "snippet": "// Before: 넓은 경로의 permitAll이 관리자 전용 규칙보다 먼저 선언됨\n// -> \"/api/account/**\"에 먼저 매칭되어 admin 하위 경로도 인증 없이 통과\n.authorizeHttpRequests(authorize -> authorize\n    .requestMatchers(\"/api/auth/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/account/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/account/admin/**\").hasRole(\"ADMIN\")\n    .requestMatchers(HttpMethod.POST, \"/api/**\").hasAnyRole(\"USER\", \"ADMIN\")\n);\n\n// After: 좁은 경로(관리자 전용)를 먼저 선언해 우선 매칭되도록 순서 변경\n.authorizeHttpRequests(authorize -> authorize\n    .requestMatchers(\"/api/auth/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/account/admin/**\").hasRole(\"ADMIN\")\n    .requestMatchers(HttpMethod.POST, \"/api/account/**\").permitAll()\n    .requestMatchers(HttpMethod.POST, \"/api/**\").hasAnyRole(\"USER\", \"ADMIN\")\n);"
           }
         }
       ],
-      "result": "34개의 이슈를 등록하고 37개의 PR을 병합했습니다. 핵심 API 개발부터 파일 처리와 배포 및 성능 개선까지 백엔드 전반에 기여했습니다."
+      "result": "이슈 34개 등록, PR 37개 병합. 핵심 API 개발, 파일 처리, 배포, 성능 개선을 포함한 백엔드 전반 기여",
+      "retrospective": [
+        "N+1 추적을 통한 연관관계 전체의 조회 비용 확인 필요성 체득. ORM 사용 시 실제 SQL과 로딩 범위의 동시 검토 지향",
+        "관리자 권한 우회 수정으로 보안 규칙 선언 순서의 중요성 확인. 접근 허용과 거부 경우를 함께 검증하는 방식 지향"
+      ]
     },
     {
       "id": "pointcloud",
@@ -311,7 +370,6 @@
       },
       "title": "Point Cloud 실시간 스트리밍 서버",
       "period": "",
-      "contribution": 78,
       "visual": "pointcloud",
       "tags": [
         "C/C++",
@@ -319,7 +377,7 @@
         "CUDA",
         "Multi-threading"
       ],
-      "summary": "LiDAR 3D Point Cloud를 실시간 송수신하는 C/C++ 소켓 통신 시스템입니다.",
+      "summary": "LiDAR 3D Point Cloud 실시간 송수신을 위한 C/C++ 소켓 통신 시스템",
       "architecture": [
         [
           "LiDAR Input",
@@ -357,19 +415,40 @@
         ]
       ],
       "roles": [
-        "통신 프로토콜 설계 및 서버 환경 구현",
-        "다중 클라이언트 데이터 병합 처리 구현",
-        "프레임 스킵, 병렬 처리, 다운샘플링으로 전송 지연 개선",
-        "국내 학술 논문 게재 및 KCC 2024 장려상 수상"
+        {
+          "title": "서버 개발과 통신 프로토콜",
+          "purpose": "공통 규칙에 따른 다중 클라이언트 3D 데이터 수신과 처리",
+          "items": [
+            "C/C++ 기반 통신 프로토콜 설계 및 서버 환경 구현",
+            "다중 클라이언트 Point Cloud 데이터 병합 처리 구현"
+          ]
+        },
+        {
+          "title": "실시간 전송 성능 최적화",
+          "purpose": "대용량 프레임과 순차 처리로 누적되는 전송 지연 완화",
+          "items": [
+            "프레임 스킵과 다운샘플링으로 전송 데이터량 조절",
+            "클라이언트별 병렬 처리로 지연 전파 완화"
+          ]
+        },
+        {
+          "title": "연구 결과 공유",
+          "purpose": "실시간 스트리밍 개선 과정 및 연구 결과 공유",
+          "items": [
+            "연구 결과를 국내 학술 논문으로 게재",
+            "KCC 2024 논문 발표 및 장려상 수상"
+          ]
+        }
       ],
       "trouble": [
         {
           "title": "대용량 프레임 지연",
-          "situation": "Point Cloud 데이터는 프레임 크기가 커서 네트워크 지연이 누적됐습니다.",
+          "situation": "대용량 Point Cloud 프레임의 연속 전송으로 **네트워크 지연 누적** 발생",
           "action": [
-            "depth 정보를 매 프레임 대신 7프레임당 1회만 전송하도록 전송 주기를 조정해 전송량을 감소"
+            "depth 전송 주기를 **매 프레임 → 7프레임당 1회**로 조정해 전송량 축소",
+            "컬러 프레임은 **매 프레임 전송 유지**로 데이터 종류별 전송 주기 분리"
           ],
-          "result": "전송량 감소로 지연 누적이 완화됐습니다.",
+          "result": "**전송량 감소 및 지연 누적 완화**",
           "code": {
             "language": "cpp",
             "snippet": "// 매 프레임 depth를 보내던 기존 로직을 7프레임당 1회 전송으로 조정\nif (frameCount % DEPTH_SEND_INTERVAL == 0) { // DEPTH_SEND_INTERVAL = 7\n    sendDepthFrame(depthBuffer);\n}\nsendColorFrame(colorBuffer); // 컬러 프레임은 매번 전송\nframeCount++;"
@@ -377,18 +456,23 @@
         },
         {
           "title": "다중 수신 안정성",
-          "situation": "클라이언트별 세션과 송수신 타이밍이 얽혀 한 클라이언트의 지연이 전체 스트림을 막았습니다.",
+          "situation": "클라이언트별 세션과 송수신 타이밍 결합으로 **한 클라이언트의 지연이 전체 스트림을 막는 현상** 발생",
           "action": [
-            "클라이언트별로 독립된 스레드에서 세션과 송수신을 처리하도록 병렬 처리 구조로 분리"
+            "클라이언트별 세션과 송수신 처리를 **독립된 스레드**로 분리",
+            "각 클라이언트의 송수신을 병렬 처리하는 구조로 전환"
           ],
-          "result": "한 클라이언트의 지연이 다른 클라이언트로 전파되지 않도록 개선했습니다.",
+          "result": "**클라이언트 간 지연 전파 완화** 및 독립적인 송수신 처리 확보",
           "code": {
             "language": "cpp",
             "snippet": "// 클라이언트별로 독립된 스레드에서 송수신을 처리해\n// 한 클라이언트의 지연이 다른 클라이언트로 전파되지 않도록 분리\nfor (auto& client : clients) {\n    std::thread(&SocketServer::handleClientSession, this, client).detach();\n}"
           }
         }
       ],
-      "result": "실시간 3D 데이터 전송 지연을 약 4.6배 개선하며 저수준 네트워크와 성능 최적화 경험을 확보했습니다."
+      "result": "실시간 3D 데이터 전송 지연 약 4.6배 개선. 저수준 네트워크 및 성능 최적화 경험 확보",
+      "retrospective": [
+        "실시간 처리에서 최신 데이터의 적시 전달과 전송량 조절의 중요성 체득. 프레임 스킵과 다운샘플링 적용 시 지연, 데이터 손실, 품질의 균형 고려",
+        "클라이언트 지연 전파 문제를 통한 동시성 설계의 중요성 체득. 처리량과 클라이언트별 지연 전파 여부의 동시 확인 지향"
+      ]
     },
     {
       "id": "loadbalancer",
@@ -398,7 +482,6 @@
       },
       "title": "L4 TCP 로드밸런서",
       "period": "",
-      "contribution": 100,
       "visual": "network",
       "tags": [
         "C",
@@ -406,7 +489,7 @@
         "TCP/IP",
         "NAT"
       ],
-      "summary": "Raw Socket으로 IP/TCP 헤더를 직접 조작해 구현한 L4 로드밸런서입니다.",
+      "summary": "Raw Socket 기반 IP/TCP 헤더 직접 조작 방식의 L4 로드밸런서",
       "architecture": [
         [
           "Client",
@@ -444,18 +527,39 @@
         ]
       ],
       "roles": [
-        "IP/TCP 헤더 파싱과 체크섬 재계산 구현",
-        "NAT 매핑 테이블과 응답 경로 복원 로직 구현",
-        "라운드로빈 기반 백엔드 선택 로직 구현"
+        {
+          "title": "패킷 처리 (Raw Socket, TCP/IP)",
+          "purpose": "주소 변환 이후 패킷의 유효성 확보",
+          "items": [
+            "IP/TCP 헤더 파싱과 주소 변환 구현",
+            "헤더 변경에 따른 체크섬 재계산 구현"
+          ]
+        },
+        {
+          "title": "세션 매핑 (NAT)",
+          "purpose": "백엔드 응답의 원본 클라이언트 전달",
+          "items": [
+            "클라이언트와 백엔드를 연결하는 NAT 매핑 테이블 구현",
+            "응답 패킷의 역방향 주소 변환 및 경로 복원 구현"
+          ]
+        },
+        {
+          "title": "트래픽 분산 (라운드로빈)",
+          "purpose": "여러 백엔드로의 순차적 요청 분산",
+          "items": [
+            "라운드로빈 기반 백엔드 선택 로직 구현"
+          ]
+        }
       ],
       "trouble": [
         {
           "title": "체크섬 불일치",
-          "situation": "패킷 헤더를 수정한 뒤 체크섬을 다시 계산하지 않아 응답 패킷이 드롭됐습니다.",
+          "situation": "헤더 수정 이후 체크섬 미갱신으로 **체크섬 불일치 및 응답 패킷 드롭** 발생",
           "action": [
-            "체크섬 재계산 로직을 헤더 수정 로직과 분리해, 헤더가 바뀔 때마다 항상 재계산되도록 수정"
+            "체크섬 재계산을 헤더 수정 로직과 분리",
+            "IP 주소와 TCP 포트 변경 이후 **IP/TCP 체크섬의 필수 재계산** 적용"
           ],
-          "result": "체크섬 불일치로 인한 패킷 드롭이 해결됐습니다.",
+          "result": "**체크섬 불일치에 따른 패킷 드롭 해소**",
           "code": {
             "language": "c",
             "snippet": "void rewrite_packet(struct iphdr *ip, struct tcphdr *tcp,\n                     uint32_t new_addr, uint16_t new_port) {\n    ip->daddr = new_addr;\n    tcp->dest = new_port;\n\n    // 헤더 수정 후 체크섬을 반드시 재계산\n    ip->check = 0;\n    ip->check = checksum((uint16_t *)ip, ip->ihl * 4);\n    tcp->check = tcp_checksum(ip, tcp);\n}"
@@ -463,18 +567,23 @@
         },
         {
           "title": "양방향 매핑",
-          "situation": "요청과 응답의 주소 변환 방향이 달라 세션 식별이 꼬였습니다.",
+          "situation": "요청과 응답의 주소 변환 방향 차이로 **세션 식별 혼선** 발생",
           "action": [
-            "NAT 테이블에 원본 클라이언트와 선택된 백엔드를 함께 기록하도록 구조 변경"
+            "NAT 테이블에 **원본 클라이언트와 선택 백엔드의 IP와 포트**를 함께 기록하도록 구조 변경",
+            "요청에서 저장한 **동일 NAT 엔트리**를 응답의 역방향 주소 변환에도 적용"
           ],
-          "result": "응답 경로 복원이 안정화됐습니다.",
+          "result": "**원본 클라이언트로의 응답 경로 복원 안정화**",
           "code": {
             "language": "c",
             "snippet": "struct nat_entry {\n    uint32_t client_ip;\n    uint16_t client_port;\n    uint32_t backend_ip;\n    uint16_t backend_port;\n};\n\n// 요청 시 매핑을 저장하고, 응답 시 같은 엔트리로 역방향 변환\nstruct nat_entry *entry =\n    nat_table_lookup_or_create(client_ip, client_port, backend_ip, backend_port);"
           }
         }
       ],
-      "result": "커널 추상화 아래의 TCP/IP 동작을 코드 수준에서 검증하며 네트워크 시스템 이해도를 높였습니다."
+      "result": "TCP/IP 동작의 코드 수준 검증을 통한 네트워크 시스템 이해도 향상",
+      "retrospective": [
+        "체크섬 불일치에 따른 패킷 드롭으로 프로토콜 필드의 필수 조건 확인. 추상화된 API 아래 동작 원리 이해의 디버깅 활용",
+        "요청과 응답 경로의 일관된 매핑 필요성 체득. 네트워크 기능 설계 시 양방향 흐름의 시각화와 검증 지향"
+      ]
     },
     {
       "id": "itaxi",
@@ -484,14 +593,13 @@
       },
       "title": "iTaxi",
       "period": "",
-      "contribution": 80,
       "visual": "taxi",
       "tags": [
         "Flutter",
         "Firebase",
         "FCM"
       ],
-      "summary": "대학생을 위한 택시·KTX 합승 매칭 및 채팅 서비스입니다.",
+      "summary": "대학생 대상 택시와 KTX 합승 매칭 및 채팅 서비스",
       "architecture": [
         [
           "Mobile App",
@@ -529,20 +637,47 @@
         ]
       ],
       "roles": [
-        "장소 검색과 즐겨찾기 기능 구현",
-        "택시와 KTX 동승방 조회 및 모집 기능 구현",
-        "Firestore 기반 채팅 상태 관리와 FCM 알림 개선",
-        "로그인 예외 처리와 사용자 정보 암호화 적용",
-        "출시 전 오류 수정과 v2.0.0 배포"
+        {
+          "title": "장소 검색과 동승 매칭 개발",
+          "purpose": "이동 조건에 맞는 동승자 검색과 모집 흐름 구현",
+          "items": [
+            "장소 검색과 즐겨찾기 기능 구현",
+            "택시와 KTX 동승방 조회 및 모집 기능 구현"
+          ]
+        },
+        {
+          "title": "채팅과 알림 (Firestore, FCM)",
+          "purpose": "사용자에게 참여 상태 및 새 메시지 전달",
+          "items": [
+            "Firestore 기반 채팅 상태 관리",
+            "FCM 기반 채팅 알림 개선"
+          ]
+        },
+        {
+          "title": "인증과 보안",
+          "purpose": "로그인 실패 처리 및 사용자 정보 보호",
+          "items": [
+            "로그인 예외 처리 개선",
+            "사용자 정보 암호화 적용"
+          ]
+        },
+        {
+          "title": "출시와 안정화",
+          "purpose": "주요 이용 흐름의 오류 해소 및 서비스 출시",
+          "items": [
+            "출시 전 오류 수정 및 v2.0.0 배포"
+          ]
+        }
       ],
       "trouble": [
         {
           "title": "채팅방 사용자 식별 오류",
-          "situation": "채팅 작성자와 방 참여자를 같은 ID로 비교하면서 방장 표시와 입퇴장 메시지가 어긋났습니다.",
+          "situation": "채팅 작성자와 방 참여자의 서로 다른 ID 혼용으로 **방장 표시와 입퇴장 메시지 불일치** 발생",
           "action": [
-            "Firebase UID와 서버 사용자 ID를 분리하고 채팅 데이터에 두 값을 함께 저장하도록 수정"
+            "**Firebase UID와 서버 사용자 ID 분리** 및 채팅 데이터에 두 값 함께 저장",
+            "방장 판별에 **서버 사용자 ID**를 사용하도록 식별 기준 정리"
           ],
-          "result": "방장 표시와 입퇴장 메시지 표시 기준이 정상화됐습니다.",
+          "result": "**방장 표시와 입퇴장 메시지 표시 기준 정상화**",
           "code": {
             "language": "dart",
             "snippet": "class ChatMessage {\n  final String firebaseUid; // Firebase Auth UID\n  final int serverUserId;   // 서버 사용자 ID (방장 판별 기준)\n\n  bool isHostOf(Room room) => serverUserId == room.hostServerUserId;\n}"
@@ -550,18 +685,23 @@
         },
         {
           "title": "KTX 동승방 참여 오류",
-          "situation": "KTX 조회 응답을 택시 응답과 같은 파서로 변환하면서 참여자 데이터가 잘못 매핑됐습니다.",
+          "situation": "KTX 응답에 택시용 파서 적용으로 **참여자 데이터 오매핑** 발생",
           "action": [
-            "조회 응답 전용 변환 함수로 교체"
+            "**KTX 조회 응답 전용 변환 함수**로 교체",
+            "실제 응답의 **members 필드와 KTX 참여자 변환 함수**에 맞춘 데이터 매핑 적용"
           ],
-          "result": "동승방 참여와 채팅방 생성이 정상화됐습니다.",
+          "result": "**동승방 참여와 채팅방 생성 정상화**",
           "code": {
             "language": "dart",
             "snippet": "// 기존: 택시 응답 파서를 재사용해 KTX 응답의 참여자 필드가 잘못 매핑됨\nRoomModel parseKtxRoom(Map<String, dynamic> json) {\n  return RoomModel(\n    participants: (json['members'] as List) // 실제 KTX 응답 키 기준으로 파싱\n        .map((m) => Participant.fromKtxJson(m))\n        .toList(),\n  );\n}"
           }
         }
       ],
-      "result": "44개의 이슈를 등록하고 70개의 PR을 병합했습니다. 장소 검색부터 동승방과 채팅 및 알림까지 주요 기능을 개발하고 v2.0.0 릴리스를 완료했습니다."
+      "result": "이슈 44개 등록, PR 70개 병합. 장소 검색, 동승방, 채팅, 알림 주요 기능 개발 및 v2.0.0 릴리스 완료",
+      "retrospective": [
+        "Firebase UID와 서버 사용자 ID 혼용 오류를 통한 식별자 의미 구분의 중요성 체득. 외부 서비스와 데이터 교환 시 경계별 식별자 기준 정리 지향",
+        "택시와 KTX 파서 재사용 오류를 통한 실제 응답 계약 확인의 중요성 체득. 응답별 변환 로직 분리 및 참여와 채팅 생성 흐름의 연계 검증 지향"
+      ]
     }
   ],
   "caseStudies": [
@@ -582,31 +722,28 @@
       "description": "Raw Socket으로 IP/TCP 헤더, 체크섬, NAT 테이블을 직접 구현하며 네트워크 동작을 검증했습니다."
     }
   ],
+  "skillRatingGuide": "5점 만점 · 1 기초 학습 · 2 도움을 받아 구현 · 3 독립적으로 구현 · 4 성능 개선·문제 해결 · 5 설계·심화 전문성",
   "skills": [
-    [
-      "Backend",
-      "Java, Spring Boot, Spring Security, Node.js, C/C++"
-    ],
-    [
-      "Frontend",
-      "React.js, Flutter"
-    ],
-    [
-      "Database",
-      "MySQL"
-    ],
-    [
-      "Infra/DevOps",
-      "Docker, GitHub Actions, AWS EC2, AWS S3, AWS RDS"
-    ],
-    [
-      "Monitoring",
-      "Grafana, Loki, Prometheus, Logback, SLF4J"
-    ],
-    [
-      "Etc",
-      "Socket Programming, Multi-threading, TCP/IP, Unity(C#)"
-    ]
+    {
+      "name": "Spring",
+      "rating": 4,
+      "description": "REST API·인증 구현, JPA 조회 최적화와 운영 장애 대응"
+    },
+    {
+      "name": "C++",
+      "rating": 4,
+      "description": "소켓 통신·멀티스레딩 기반 실시간 스트리밍과 성능 개선"
+    },
+    {
+      "name": "SQL",
+      "rating": 3,
+      "description": "관계형 데이터 조회와 N+1 원인 분석, 배치 조회 적용"
+    },
+    {
+      "name": "Docker",
+      "rating": 3,
+      "description": "서비스 컨테이너화와 CI/CD·모니터링 환경 구성"
+    }
   ],
   "education": [
     {
